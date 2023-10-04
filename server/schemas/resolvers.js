@@ -56,13 +56,13 @@ const resolvers = {
           ingredients,
           url
         });
-
-        await User.findOneAndUpdate(
+        console.log(recipe)
+        const user = await User.findOneAndUpdate(
           { _id: context.user._id },
           { $addToSet: { recipes: recipe._id } }
         );
-
-        return recipe;
+          console.log(user)
+        return user;
       }
       throw AuthenticationError;
       ('You need to be logged in!');

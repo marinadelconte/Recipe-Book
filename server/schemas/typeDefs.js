@@ -7,12 +7,19 @@ const typeDefs = `
     recipes: [Recipe]
   }
 
+type Ingredient {
+  _id: ID
+  text: String
+  foodId: String
+  image: String 
+}
+
   type Recipe {
     _id: ID
     label: String
-    healthLabels: String
+    healthLabels: [String]
     image: String
-    ingredients: [ingredientSchema]
+    ingredients: [Ingredient]
     url: String
 
     }
@@ -33,7 +40,7 @@ const typeDefs = `
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addRecipe(label: String, healthLabels: String, image: String, ingredients: [ingredientSchema], url: String): User
+    addRecipe(label: String, healthLabels: [String], image: String, url: String): User
     removeRecipe(recipeId: ID!): User
    
   }
