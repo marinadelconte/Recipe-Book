@@ -3,32 +3,32 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const productSchema = new Schema({
-  name: {
+  label: {
     type: String,
     required: true,
     trim: true
   },
-  description: {
+  healthLabels: {
     type: String
   },
   image: {
     type: String
   },
-  price: {
+  ingredients: {
     type: Number,
     required: true,
     min: 0.99
   },
-  quantity: {
+  url: {
     type: Number,
     min: 0,
     default: 0
   },
-  category: {
-    type: Schema.Types.ObjectId,
-    ref: 'Category',
-    required: true
-  }
+  // category: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'Category',
+  //   required: true
+  // }
 });
 
 const Product = mongoose.model('Product', productSchema);
