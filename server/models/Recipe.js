@@ -2,27 +2,40 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const productSchema = new Schema({
+const ingredientSchema =new Schema({
+
+  text:{
+    type: String
+},
+  foodId:{
+    type: String
+},
+  image:{
+    type: String
+}
+
+
+})
+
+const recipeSchema = new Schema({
   label: {
-    type: String,
-    required: true,
-    trim: true
+    type: String
+    
   },
   healthLabels: {
-    type: String
+    type: [String]
   },
   image: {
     type: String
+
   },
   ingredients: {
-    type: Number,
-    required: true,
-    min: 0.99
+    type: [ingredientSchema]
+   
   },
   url: {
-    type: Number,
-    min: 0,
-    default: 0
+    type: String
+    
   },
   // category: {
   //   type: Schema.Types.ObjectId,
@@ -31,6 +44,6 @@ const productSchema = new Schema({
   // }
 });
 
-const Product = mongoose.model('Product', productSchema);
+const Recipe = mongoose.model('Recipe', recipeSchema);
 
-module.exports = Product;
+module.exports = Recipe;
