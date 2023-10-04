@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import ThoughtList from './ThoughtList';
 import ThoughtForm from './ThoughtForm';
 
-import { QUERY_THOUGHTS } from '../utils/queries';
+import { QUERY_THOUGHTS } from '../../utils/queries';
 
 const Home = () => {
   const { loading, data } = useQuery(QUERY_THOUGHTS);
