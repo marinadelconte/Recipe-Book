@@ -47,14 +47,13 @@ const resolvers = {
 
       return { token, user };
     },
-    addRecipe: async (parent, { recipeText }, context) => {
+    addRecipe: async (parent, { title, text, image, link }, context) => {
       if (context.user) {
         const recipe = await Recipe.create({
           title,
           text,
           image,
-          link,
-          recipeAuthor: context.user.username //need help here
+          link
         });
 
         await User.findOneAndUpdate(
@@ -70,8 +69,7 @@ const resolvers = {
     removeRecipe: async (parent, { recipeId }, context) => {
       if (context.user) {
         const recipe = await Recipe.findOneAndDelete({
-          _id: recipeId,
-          recipeAuthor: context.user.username, //need help here
+          _id: recipeId
         });
 
         await User.findOneAndUpdate(
