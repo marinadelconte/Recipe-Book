@@ -33,6 +33,9 @@ const SavedRecipes = () => {
       });
 
       removeRecipeId(recipe._id); 
+      window.location.reload(false)
+      console.log(recipe._id)
+      console.log(recipe)
       
     } catch (err) {
       console.error(err);
@@ -56,7 +59,7 @@ const SavedRecipes = () => {
                   <p>{recipe.url}</p>
                  
                 </Card.Text>
-                <Button onClick={() => handleDeleteRecipe(recipe._id)}>Delete</Button>
+                <Button onClick={() => handleDeleteRecipe(recipe)}>Delete</Button>
               </Card.Body>
             </Card>
           ))}
