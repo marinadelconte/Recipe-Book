@@ -56,13 +56,13 @@ export const QUERY_ME = gql`
   query userData {
     me {
     _id
+    username
     recipes {
       _id
       image
       label
       url
     }
-    username
   }
   }
 `;

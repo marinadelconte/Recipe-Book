@@ -13,13 +13,14 @@ import { REMOVE_RECIPE } from '../utils/mutations';
 import { QUERY_ME } from '../utils/queries';
 
 const SavedRecipes = () => {
-  const [removeRecipe, {error}] = useMutation(REMOVE_RECIPE)
-  const {loading, data} = useQuery(QUERY_ME)
-  const userData = data?.me || {}
+  const [removeRecipe, {error}] = useMutation(REMOVE_RECIPE);
+  const {loading, data} = useQuery(QUERY_ME);
+  const userData = data?.me || {};
   const userDataLength = Object.keys(userData).length;
   const savedRecipes = userData.savedRecipes || [];
+  const recipes = userData.recipes || [];
 
-  const handleDeleteRecipe = async (recipe) => {
+  const handleDeleteRecipe = async (recipe) => { 
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
@@ -28,45 +29,42 @@ const SavedRecipes = () => {
 
     try {
       const {data} = await removeRecipe({
-        variables: { _id }
+        variables: { recipeId: recipe._id } 
       });
 
-
-      removeRecipeId(recipe);
+      removeRecipeId(recipe._id); 
+      
     } catch (err) {
       console.error(err);
     }
   };
 
-  if (!userDataLength) {
-    return <h2>LOADING...</h2>;
-  }
-// TODO:PROPERTY CHAINING IN CARD BELOW MUST MATCH recipeData
   return (
     <>
-    
- <div>
- <h2 className='pt-5'>
-          {savedRecipes.length
-            ? `Viewing ${savedRecipes.length} saved ${savedRecipes.length === 1 ? 'recipe' : 'recipes'}:`
-            : 'You have no saved recipes!'}
-        </h2>
- </div>
+       <div>
+      <h2>My Recipes</h2>
+      {recipes.length === 0 ? (
+        <p>You have no saved recipes.</p>
+      ) : (
+        <div>
+          {recipes.map((recipe) => (
+            <Card key={recipe._id}>
+              <Card.Img variant="top" src={recipe.image} alt={`Image for ${recipe.label}`} />
+              <Card.Body>
+                <Card.Title>{recipe.label}</Card.Title>
+                <Card.Text>
+                  <p>{recipe.url}</p>
+                 
+                </Card.Text>
+                <Button onClick={() => handleDeleteRecipe(recipe._id)}>Delete</Button>
+              </Card.Body>
+            </Card>
+          ))}
+        </div>
+      )}
+    </div>
     </>
   );
 };
 
 export default SavedRecipes;
-{/* <div>
-      
-<Card>
-{savedRecipes.map((recipe)=>(
-  <div key={recipe._id}>
-    <p>{recipe.label}</p>
-    <Button onClick={() => handleDeleteRecipe(recipe._id)}>Delete</Button>
-  </div>
-))}
-
-</Card>
-
-</div> */}
