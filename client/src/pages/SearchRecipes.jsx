@@ -45,7 +45,7 @@ const SearchRecipes = () => {
       //   // TODO: MUST ADD PATHS FROM FETCH API TO LINK KEYS ABOVE
       // }));
 
-      setSearchedRecipes(recipeData);
+      // setSearchedRecipes(recipeData);
       setSearchInput('');
     } catch (err) {
       console.error(err);
