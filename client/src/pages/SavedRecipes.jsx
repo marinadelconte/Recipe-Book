@@ -10,11 +10,11 @@ import {useMutation, useQuery} from '@apollo/client';
 import Auth from '../utils/auth';
 import { removeRecipeId } from '../utils/localStorage';
 import { REMOVE_RECIPE } from '../utils/mutations';
-import { GET_ME } from '../utils/queries';
+import { QUERY_ME } from '../utils/queries';
 
 const SavedRecipes = () => {
   const [removeRecipe, {error}] = useMutation(REMOVE_RECIPE)
-  const {loading, data} = useQuery(GET_ME)
+  const {loading, data} = useQuery(QUERY_ME)
   const userData = data?.me || {}
   const userDataLength = Object.keys(userData).length;
 
