@@ -123,14 +123,14 @@ const SearchRecipes = () => {
                     <p className='small'>Recipe: {recipe.label}</p>
                     <Card.Text>{recipe.description}</Card.Text>
                     {Auth.loggedIn() && (
-                      <Button
-                        disabled={savedRecipeIds?.some((savedRecipeId) => savedRecipeId === recipe.recipeId)}
-                        className='btn-block btn-info'
-                        onClick={() => handleSaveRecipe(recipe)}>
-                        {savedRecipeIds?.some((savedRecipeId) => savedRecipeId === recipe.recipeId)
-                          ? 'This recipe has already been saved!'
-                          : 'Save this Recipe!'}
-                      </Button>
+                 <Button
+                 disabled={savedRecipeIds?.includes(recipe.url)}
+                 className='btn-block btn-info'
+                 onClick={() => handleSaveRecipe(recipe)}>
+                 {savedRecipeIds?.includes(recipe.url)
+                   ? 'This recipe has already been saved!'
+                   : 'Save this Recipe!'}
+               </Button>
                     )}
                   </Card.Body>
                 </Card>

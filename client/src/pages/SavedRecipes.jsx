@@ -18,7 +18,7 @@ const SavedRecipes = () => {
   const userData = data?.me || {}
   const userDataLength = Object.keys(userData).length;
 
-  const handleDeleteRecipe = async (recipeId) => {
+  const handleDeleteRecipe = async (recipe) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
@@ -27,10 +27,10 @@ const SavedRecipes = () => {
 
     try {
       const {data} = await removeRecipe({
-        variables: {recipeId}
+        variables: {recipe}
       });
 
-      removeRecipeId(recipeId);
+      removeRecipeId(recipe);
     } catch (err) {
       console.error(err);
     }
