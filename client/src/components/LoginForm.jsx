@@ -1,6 +1,6 @@
 // see SignupForm.js for comments
 import { useState, useEffect } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
+import { Form, Button, Alert } from 'react-bulma-components';
 import {useMutation} from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
