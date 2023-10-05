@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar } from 'react-bulma-components';
 // import { Navbar, Nav, Container, Modal, Tab } from 'react-bootstrap';
-import SignUpForm from './SignupForm';
+import SignUpForm from './possibleComponnents/SignupForm';
 import LoginForm from './LoginForm';
 
 
