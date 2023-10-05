@@ -6,39 +6,48 @@ export const QUERY_USER = gql`
       _id
       username
       email
-      thoughts {
-        _id
-        thoughtText
-        createdAt
-      }
+      recipes 
     }
   }
 `;
 
-export const QUERY_THOUGHTS = gql`
-  query getThoughts {
-    thoughts {
+export const QUERY_USERS = gql`
+  query users {
+    users {
       _id
-      thoughtText
-      thoughtAuthor
-      createdAt
+      username
+      email
+      recipes {
+        _id
+        label
+        healthLabels
+        image
+        url
+        }
     }
   }
 `;
 
-export const QUERY_SINGLE_THOUGHT = gql`
-  query getSingleThought($thoughtId: ID!) {
-    thought(thoughtId: $thoughtId) {
+export const QUERY_SINGLE_RECIPE = gql`
+  query getSingleRecipe($recipeId: ID!) {
+    recipe(recipeId: $recipeId) {
       _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      comments {
-        _id
-        commentText
-        commentAuthor
-        createdAt
-      }
+      label
+      healthLabels
+      image
+      url 
+    }
+  }
+`;
+
+export const QUERY_RECIPES = gql`
+  query getRecipes {
+    recipes {
+      _id
+      label
+      healthLabels
+      image
+      url
     }
   }
 `;
@@ -49,11 +58,12 @@ export const QUERY_ME = gql`
       _id
       username
       email
-      thoughts {
+      recipes {
         _id
-        thoughtText
-        thoughtAuthor
-        createdAt
+        label
+        healthLabels
+        image
+        url
       }
     }
   }

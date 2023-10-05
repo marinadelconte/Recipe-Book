@@ -24,33 +24,27 @@ export const ADD_USER = gql`
   }
 `;
 
-export const ADD_THOUGHT = gql`
-  mutation addThought($thoughtText: String!) {
-    addThought(thoughtText: $thoughtText) {
+export const ADD_RECIPE = gql`
+  mutation addRecipe($label: String, $healthLabels: String, $image: String, $url: String) {
+    addRecipe(label: $label, healthLabels: $healthLabels, image: $image, url: $ur) {
       _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      comments {
+      label
+      healthLabels
+      image
+      url {
         _id
-        commentText
+        username
       }
     }
   }
 `;
 
-export const ADD_COMMENT = gql`
-  mutation addComment($thoughtId: ID!, $commentText: String!) {
-    addComment(thoughtId: $thoughtId, commentText: $commentText) {
+export const REMOVE_RECIPE = gql`
+  mutation removeRecipe($recipeId: ID!) {
+    removeRecipe(recipeId: $recipeId) {
       _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      comments {
-        _id
-        commentText
-        createdAt
-      }
+      username
+      email
     }
   }
 `;
