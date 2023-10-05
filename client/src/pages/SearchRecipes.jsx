@@ -7,7 +7,7 @@ import { ADD_RECIPE } from '../utils/mutations';
 
 const SearchRecipes = () => {
   const [searchedRecipes, setSearchedRecipes] = useState([]);
-  const [searchInput, setSearchInput] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
   const [savedRecipeIds, setSavedRecipeIds] = useState(getSavedRecipeIds());
   const [saveRecipe, {error}] = useMutation(ADD_RECIPE)
 
@@ -21,32 +21,32 @@ const SearchRecipes = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    if (!searchInput) {
+    if (!searchTerm) {
       return false;
     }
 
     try {
-      const response = await fetch(`/searchRecipes/${searchInput}`);;
+      const response = await fetch(`/searchRecipes/${searchTerm}`);;
       // TODO: FETCH IS ON THE FRONT END SERVER.JS, DO I NEED TO PULL FROM LOCAL STORAGE? OR IS THERE ANOTHER WAY?
-      console.log(searchInput)
+      // console.log(searchTerm)
       if (!response.ok) {
         throw new Error('something went wrong!');
       }
 
       const data = await response.json();
       console.log(data)
-      // const recipeData = items.map((recipe) => ({
+      const recipeData = data.hits.map((recipe) => ({
         
-      //   recipeId: recipe.id,
-      //   label:"",
-      //   healthLabels: "",
-      //   image: "",
-      //   url:""
-      //   // TODO: MUST ADD PATHS FROM FETCH API TO LINK KEYS ABOVE
-      // }));
-
+        recipeId: recipe._id,
+        label: recipe.recipe.label,
+        // healthLabels: recipe.healthLabels,
+        image: recipe.recipe.image,
+        url: recipe.recipe.url  
+        // TODO: MUST ADD PATHS FROM FETCH API TO LINK KEYS ABOVE
+      }));
+      
       setSearchedRecipes(recipeData);
-      setSearchInput('');
+      setSearchTerm('');
     } catch (err) {
       console.error(err);
     }
@@ -80,9 +80,9 @@ const SearchRecipes = () => {
             <Row>
               <Col xs={12} md={8}>
                 <Form.Control
-                  name='searchInput'
-                  value={searchInput}
-                  onChange={(e) => setSearchInput(e.target.value)}
+                  name='searchTerm'
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                   type='text'
                   size='lg'
                   placeholder='Search for a recipe'
@@ -110,11 +110,11 @@ const SearchRecipes = () => {
               <Col md="4" key={recipe.recipeId}>
                 <Card border='dark'>
                   {recipe.image ? (
-                    <Card.Img src={recipe.image} alt={`The cover for ${recipe.title}`} variant='top' />
+                    <Card.Img src={recipe.image} alt={`The cover for ${recipe.url}`} variant='top' />
                   ) : null}
                   <Card.Body>
-                    <Card.Title>{recipe.title}</Card.Title>
-                    <p className='small'>Authors: {recipe.authors}</p>
+                    <Card.Title>{recipe.url}</Card.Title>
+                    <p className='small'>Recipe: {recipe.label}</p>
                     <Card.Text>{recipe.description}</Card.Text>
                     {Auth.loggedIn() && (
                       <Button
