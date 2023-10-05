@@ -39,7 +39,7 @@ const SavedRecipes = () => {
   if (!userDataLength) {
     return <h2>LOADING...</h2>;
   }
-// TODO:PATHS IN CARD BELOW MUST MATCH PATHS IN recipeData
+// TODO:PROPERTY CHAINING IN CARD BELOW MUST MATCH recipeData
   return (
     <>
       <div fluid="true" className="text-light bg-dark p-5">
