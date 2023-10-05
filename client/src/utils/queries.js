@@ -53,18 +53,16 @@ export const QUERY_RECIPES = gql`
 `;
 
 export const QUERY_ME = gql`
-  query me {
+  query userData {
     me {
+    _id
+    recipes {
       _id
-      username
-      email
-      recipes {
-        _id
-        label
-        healthLabels
-        image
-        url
-      }
+      image
+      label
+      url
     }
+    username
+  }
   }
 `;

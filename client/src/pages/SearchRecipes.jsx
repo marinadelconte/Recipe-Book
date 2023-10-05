@@ -28,21 +28,13 @@ const SearchRecipes = () => {
     try {
       const response = await fetch(`/searchRecipes/${searchTerm}`);;
      
-      // console.log(searchTerm)
       if (!response.ok) {
         throw new Error('something went wrong!');
       }
 
       const data = await response.json();
       console.log("Data", data.hits)
-      // const recipeData = data.hits.map((recipe) => ({
-        
-      //   // recipeId: recipe.recipe.uri,
-      //   label: recipe.recipe.label,
-      //   image: recipe.recipe.image,
-      //   url: recipe.recipe.url , 
-      
-      // }));
+
     
       setSearchedRecipes(data.hits);
       setSearchTerm('');
@@ -54,8 +46,7 @@ const SearchRecipes = () => {
   const handleSaveRecipe = async (recipe) => {
 
     console.log("recipe I want to save", recipe)
-    //  label, image, url
-    // const recipeToSave = searchedRecipes.find((recipe) => recipe.recipeId === recipeId);
+   
     let recipeToSave = {label: recipe.label, image: recipe.image, url: recipe.url}
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -75,7 +66,7 @@ const SearchRecipes = () => {
       console.error(err);
     }
   };
-// TODO:PROPERTY CHAINING IN CARD BELOW MUST MATCH recipeData
+
   return (
     <>
       <div className="text-light bg-dark p-5">

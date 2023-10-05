@@ -17,6 +17,7 @@ const SavedRecipes = () => {
   const {loading, data} = useQuery(QUERY_ME)
   const userData = data?.me || {}
   const userDataLength = Object.keys(userData).length;
+  const savedRecipes = userData.savedRecipes || [];
 
   const handleDeleteRecipe = async (recipe) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -27,8 +28,9 @@ const SavedRecipes = () => {
 
     try {
       const {data} = await removeRecipe({
-        variables: {recipe}
+        variables: { _id }
       });
+
 
       removeRecipeId(recipe);
     } catch (err) {
@@ -42,39 +44,29 @@ const SavedRecipes = () => {
 // TODO:PROPERTY CHAINING IN CARD BELOW MUST MATCH recipeData
   return (
     <>
-      <div fluid="true" className="text-light bg-dark p-5">
-        <Container>
-          <h1>Viewing saved recipes!</h1>
-        </Container>
-      </div>
-      <Container>
-        <h2 className='pt-5'>
-          {userData.savedRecipes.length
-            ? `Viewing ${userData.savedRecipes.length} saved ${userData.savedRecipes.length === 1 ? 'recipe' : 'recipes'}:`
+    
+ <div>
+ <h2 className='pt-5'>
+          {savedRecipes.length
+            ? `Viewing ${savedRecipes.length} saved ${savedRecipes.length === 1 ? 'recipe' : 'recipes'}:`
             : 'You have no saved recipes!'}
         </h2>
-        <Row>
-          {userData.savedRecipes.map((recipe) => {
-            return (
-              <Col md="4" key={recipe.recipeId}>
-                <Card key={recipe.recipeId} border='dark'>
-                  {recipe.image ? <Card.Img src={recipe.image} alt={`The cover for ${recipe.title}`} variant='top' /> : null}
-                  <Card.Body>
-                    <Card.Title>{recipe.title}</Card.Title>
-                    <p className='small'>Authors: {recipe.authors}</p>
-                    <Card.Text>{recipe.description}</Card.Text>
-                    <Button className='btn-block btn-danger' onClick={() => handleDeleteRecipe(recipe.recipeId)}>
-                      Delete this Recipe!
-                    </Button>
-                  </Card.Body>
-                </Card>
-              </Col>
-            );
-          })}
-        </Row>
-      </Container>
+ </div>
     </>
   );
 };
 
 export default SavedRecipes;
+{/* <div>
+      
+<Card>
+{savedRecipes.map((recipe)=>(
+  <div key={recipe._id}>
+    <p>{recipe.label}</p>
+    <Button onClick={() => handleDeleteRecipe(recipe._id)}>Delete</Button>
+  </div>
+))}
+
+</Card>
+
+</div> */}
