@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-// import { Container, Col, Form, Button, Card, Row} from 'react-bootstrap';
+import { Container, Col, Form, Button, Card, Row} from 'react-bootstrap';
 import {useMutation} from '@apollo/client';
 import Auth from '../utils/auth';
 import { saveRecipeIds, getSavedRecipeIds } from '../utils/localStorage';
@@ -26,24 +26,24 @@ const SearchRecipes = () => {
     }
 
     try {
-      const response = await fetch(`https://www.googleapis.com/recipes/v1/volumes?q=${searchInput}`);;
+      const response = await fetch(`/searchRecipes/${searchInput}`);;
       // TODO: FETCH IS ON THE FRONT END SERVER.JS, DO I NEED TO PULL FROM LOCAL STORAGE? OR IS THERE ANOTHER WAY?
-
+      console.log(searchInput)
       if (!response.ok) {
         throw new Error('something went wrong!');
       }
 
-      const { items } = await response.json();
-
-      const recipeData = items.map((recipe) => ({
+      const data = await response.json();
+      console.log(data)
+      // const recipeData = items.map((recipe) => ({
         
-        recipeId: recipe.id,
-        label:"",
-        healthLabels: "",
-        image: "",
-        url:""
-        // TODO: MUST ADD PATHS FROM FETCH API TO LINK KEYS ABOVE
-      }));
+      //   recipeId: recipe.id,
+      //   label:"",
+      //   healthLabels: "",
+      //   image: "",
+      //   url:""
+      //   // TODO: MUST ADD PATHS FROM FETCH API TO LINK KEYS ABOVE
+      // }));
 
       setSearchedRecipes(recipeData);
       setSearchInput('');
