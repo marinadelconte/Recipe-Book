@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react';
-import { Container, Col, Form, Button, Card, Row} from 'react-bootstrap';
+// import { Container, Col, Form, Button, Card, Row} from 'react-bootstrap';
 import {useMutation} from '@apollo/client';
 import Auth from '../utils/auth';
-import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
-import { SAVE_BOOK } from '../utils/mutations';
+import { saveRecipeIds, getSavedRecipeIds } from '../utils/localStorage';
+import { ADD_RECIPE } from '../utils/mutations';
 
-const SearchBooks = () => {
-  const [searchedBooks, setSearchedBooks] = useState([]);
+const SearchRecipes = () => {
+  const [searchedRecipes, setSearchedRecipes] = useState([]);
   const [searchInput, setSearchInput] = useState('');
-  const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
-  const [saveBook, {error}] = useMutation(SAVE_BOOK)
+  const [savedRecipeIds, setSavedRecipeIds] = useState(getSavedRecipeIds());
+  const [saveRecipe, {error}] = useMutation(ADD_RECIPE)
 
   useEffect(() => {
-   saveBookIds(savedBookIds);
-   return () => {
+    saveRecipeIds(savedRecipeIds);
+    return () => {
   
   };
   }, []);
@@ -26,7 +26,8 @@ const SearchBooks = () => {
     }
 
     try {
-      const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}`);;
+      const response = await fetch(`https://www.googleapis.com/recipes/v1/volumes?q=${searchInput}`);;
+      // TODO: FETCH IS ON THE FRONT END SERVER.JS, DO I NEED TO PULL FROM LOCAL STORAGE? OR IS THERE ANOTHER WAY?
 
       if (!response.ok) {
         throw new Error('something went wrong!');
@@ -34,27 +35,25 @@ const SearchBooks = () => {
 
       const { items } = await response.json();
 
-      const bookData = items.map((book) => ({
-        bookId: book.id,
-        authors: book.volumeInfo.authors || ['No author to display'],
-        title: book.volumeInfo.title,
-        description: book.volumeInfo.description,
-        image: book.volumeInfo.imageLinks?.thumbnail || '',
+      const recipeData = items.map((recipe) => ({
+        
+        recipeId: recipe.id,
+        label:"",
+        healthLabels: "",
+        image: "",
+        url:""
+        // TODO: MUST ADD PATHS FROM FETCH API TO LINK KEYS ABOVE
       }));
 
-      setSearchedBooks(bookData);
+      setSearchedRecipes(recipeData);
       setSearchInput('');
     } catch (err) {
       console.error(err);
     }
   };
 
-  // create function to handle saving a book to our database
-  const handleSaveBook = async (bookId) => {
-    // find the book in `searchedBooks` state by the matching id
-    const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
-
-    // get token
+  const handleSaveRecipe = async (recipeId) => {
+    const recipeToSave = searchedRecipes.find((recipe) => recipe.recipeId === recipeId);
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
@@ -62,22 +61,21 @@ const SearchBooks = () => {
     }
 
     try {
-     const {data} = await saveBook({
-      variables: {bookData:{...bookToSave}}
+     const {data} = await saveRecipe({
+      variables: {recipeData:{...recipeToSave}}
      })
 
-      // if book successfully saves to user's account, save book id to state
-      setSavedBookIds([...savedBookIds, bookToSave.bookId]);
+      setSavedRecipeIds([...savedRecipeIds, recipeToSave.recipeId]);
     } catch (err) {
       console.error(err);
     }
   };
-
+// TODO:PROPERTY CHAINING IN CARD BELOW MUST MATCH recipeData
   return (
     <>
       <div className="text-light bg-dark p-5">
         <Container>
-          <h1>Search for Books!</h1>
+          <h1>Search for Recipes!</h1>
           <Form onSubmit={handleFormSubmit}>
             <Row>
               <Col xs={12} md={8}>
@@ -87,7 +85,7 @@ const SearchBooks = () => {
                   onChange={(e) => setSearchInput(e.target.value)}
                   type='text'
                   size='lg'
-                  placeholder='Search for a book'
+                  placeholder='Search for a recipe'
                 />
               </Col>
               <Col xs={12} md={4}>
@@ -102,30 +100,30 @@ const SearchBooks = () => {
 
       <Container>
         <h2 className='pt-5'>
-          {searchedBooks.length
-            ? `Viewing ${searchedBooks.length} results:`
-            : 'Search for a book to begin'}
+          {searchedRecipes.length
+            ? `Viewing ${searchedRecipes.length} results:`
+            : 'Search for a recipe to begin'}
         </h2>
         <Row>
-          {searchedBooks.map((book) => {
+          {searchedRecipes.map((recipe) => {
             return (
-              <Col md="4" key={book.bookId}>
+              <Col md="4" key={recipe.recipeId}>
                 <Card border='dark'>
-                  {book.image ? (
-                    <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' />
+                  {recipe.image ? (
+                    <Card.Img src={recipe.image} alt={`The cover for ${recipe.title}`} variant='top' />
                   ) : null}
                   <Card.Body>
-                    <Card.Title>{book.title}</Card.Title>
-                    <p className='small'>Authors: {book.authors}</p>
-                    <Card.Text>{book.description}</Card.Text>
+                    <Card.Title>{recipe.title}</Card.Title>
+                    <p className='small'>Authors: {recipe.authors}</p>
+                    <Card.Text>{recipe.description}</Card.Text>
                     {Auth.loggedIn() && (
                       <Button
-                        disabled={savedBookIds?.some((savedBookId) => savedBookId === book.bookId)}
+                        disabled={savedRecipeIds?.some((savedRecipeId) => savedRecipeId === recipe.recipeId)}
                         className='btn-block btn-info'
-                        onClick={() => handleSaveBook(book.bookId)}>
-                        {savedBookIds?.some((savedBookId) => savedBookId === book.bookId)
-                          ? 'This book has already been saved!'
-                          : 'Save this Book!'}
+                        onClick={() => handleSaveRecipe(recipe.recipeId)}>
+                        {savedRecipeIds?.some((savedRecipeId) => savedRecipeId === recipe.recipeId)
+                          ? 'This recipe has already been saved!'
+                          : 'Save this Recipe!'}
                       </Button>
                     )}
                   </Card.Body>
@@ -139,4 +137,4 @@ const SearchBooks = () => {
   );
 };
 
-export default SearchBooks;
+export default SearchRecipes;
