@@ -47,21 +47,20 @@ const resolvers = {
 
       return { token, user };
     },
-    addRecipe: async (parent, { label, healthLabels, image, ingredients, url }, context) => {
+    addRecipe: async (parent, { label, image, url }, context) => {
+      console.log(label, image, url);
       if (context.user) {
         const recipe = await Recipe.create({
           label,
-          healthLabels,
           image,
-          ingredients,
           url
         });
-        console.log(recipe)
+        // console.log("recipe",recipe)
         const user = await User.findOneAndUpdate(
           { _id: context.user._id },
           { $addToSet: { recipes: recipe._id } }
-        );
-          console.log(user)
+        ).populate("recipes")
+        // console.log(user)
         return user;
       }
       throw AuthenticationError;
