@@ -32,6 +32,8 @@ const SavedRecipes = () => {
 
       removeRecipeId(recipe._id); 
       await refetch();
+      console.log(recipe._id)
+      console.log(recipe)
       
     } catch (err) {
       console.error(err);
