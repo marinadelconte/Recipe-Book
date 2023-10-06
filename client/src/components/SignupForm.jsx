@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 // import { Form, Button, Alert } from 'react-bootstrap';
+import "../assets/style.css";
 
 import "bulma/css/bulma.min.css";
 import { Form, Icon, Input, Button } from "react-bulma-components";
@@ -36,7 +37,6 @@ const SignupForm = () => {
     event.preventDefault();
 
     const form = event.currentTarget;
-   
 
     try {
       const { data } = await createUser({
@@ -57,8 +57,7 @@ const SignupForm = () => {
 
   return (
     <>
-           
-      <Form.Field>
+      <Form.Field className="mx-5 mt-6">
         <Form.Label>Username</Form.Label>
         <Form.Control>
           <Form.Input
@@ -66,7 +65,8 @@ const SignupForm = () => {
             name="username"
             type="username"
             value={userFormData.username}
-             onChange={handleInputChange}
+            onChange={handleInputChange}
+            required
           />
           <Icon align="left">
             <i className="github" />
@@ -74,7 +74,7 @@ const SignupForm = () => {
         </Form.Control>
       </Form.Field>
 
-      <Form.Field>
+      <Form.Field className="mx-5">
         <Form.Label>Email</Form.Label>
         <Form.Control>
           <Form.Input
@@ -83,14 +83,15 @@ const SignupForm = () => {
             type="email"
             value={userFormData.email}
             onChange={handleInputChange}
-            />
+            required
+          />
           <Icon align="left">
             <i className="github" />
           </Icon>
         </Form.Control>
       </Form.Field>
 
-      <Form.Field>
+      <Form.Field className="mx-5">
         <Form.Label>Password</Form.Label>
         <Form.Control>
           <Form.Input
@@ -99,20 +100,27 @@ const SignupForm = () => {
             type="password"
             value={userFormData.password}
             onChange={handleInputChange}
-            />
+            required
+          />
           <Icon align="left">
             <i className="github" />
           </Icon>
         </Form.Control>
       </Form.Field>
 
-      <Button.Group>
-        <Button fullwidth rounded color="primary" type="submit" onClick={handleFormSubmit}>
+      <Button.Group className="mx-5 mt-6">
+        <Button
+          className="buttonSubmit"
+          fullwidth
+          rounded
+          type="submit"
+          onClick={handleFormSubmit}
+          disabled={!(userFormData.email && userFormData.password && userFormData.username)}
+
+        >
           Sign Up
         </Button>
       </Button.Group>
-      
-
     </>
   );
 };
