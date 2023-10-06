@@ -18,6 +18,7 @@ const server = new ApolloServer({
 app.get("/searchRecipes/:searchTerm", async function (req, res) {
 const response = await fetch (`https://api.edamam.com/api/recipes/v2?type=public&q=${req.params.searchTerm}&app_id=${process.env.APP_ID}&app_key=${process.env.APP_KEY}`)
 const data = await response.json()
+console.log(data)
 res.send(data)
 console.log(process.env.APP_ID)
 console.log(process.env.APP_KEY)
