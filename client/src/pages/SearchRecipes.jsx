@@ -47,7 +47,7 @@ const SearchRecipes = () => {
 
     console.log("recipe I want to save", recipe)
    
-    let recipeToSave = {label: recipe.label, image: recipe.image, url: recipe.url, yield: recipe.yield}
+    let recipeToSave = {label: recipe.label, image: recipe.image, url: recipe.url, yield: recipe.yield, calories: recipe.calories}
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
@@ -57,7 +57,7 @@ const SearchRecipes = () => {
     try {
       console.log("attempting mutation", recipeToSave)
      const {data} = await saveRecipe({
-      variables: {label: recipe.label, image: recipe.image, url: recipe.url, yield: recipe.yield}
+      variables: {label: recipe.label, image: recipe.image, url: recipe.url, yield: recipe.yield, calories: recipe.calories}
      })
      console.log(data)
 

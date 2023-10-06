@@ -25,8 +25,8 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_RECIPE = gql`
-  mutation AddRecipe($label: String, $image: String, $url: String, $yield: Int) {
-  addRecipe(label: $label, image: $image, url: $url, yield: $yield) {
+  mutation AddRecipe($label: String, $image: String, $url: String, $yield: Int, $calories: Float) {
+  addRecipe(label: $label, image: $image, url: $url, yield: $yield, calories: $calories) {
     _id
         username
     recipes {
@@ -35,6 +35,7 @@ export const ADD_RECIPE = gql`
       image
       url
       yield
+      calories
     }
 
   }

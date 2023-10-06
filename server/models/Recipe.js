@@ -32,6 +32,9 @@ const recipeSchema = new Schema({
   },
   yield: {
     type: Number
+  },
+  calories: {
+    type: Number
   }
   // category: {
   //   type: Schema.Types.ObjectId,
