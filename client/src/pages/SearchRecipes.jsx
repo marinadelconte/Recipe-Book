@@ -27,33 +27,27 @@ const SearchRecipes = () => {
 
     try {
       const response = await fetch(`/searchRecipes/${searchTerm}`);;
-      // TODO: FETCH IS ON THE FRONT END SERVER.JS, DO I NEED TO PULL FROM LOCAL STORAGE? OR IS THERE ANOTHER WAY?
-      // console.log(searchTerm)
+     
       if (!response.ok) {
         throw new Error('something went wrong!');
       }
 
       const data = await response.json();
-      console.log(data)
-      const recipeData = data.hits.map((recipe) => ({
-        
-        recipeId: recipe._id,
-        label: recipe.recipe.label,
-        // healthLabels: recipe.healthLabels,
-        image: recipe.recipe.image,
-        url: recipe.recipe.url  
-        // TODO: MUST ADD PATHS FROM FETCH API TO LINK KEYS ABOVE
-      }));
-      
-      setSearchedRecipes(recipeData);
+      console.log("Data", data.hits)
+
+    
+      setSearchedRecipes(data.hits);
       setSearchTerm('');
     } catch (err) {
       console.error(err);
     }
   };
 
-  const handleSaveRecipe = async (recipeId) => {
-    const recipeToSave = searchedRecipes.find((recipe) => recipe.recipeId === recipeId);
+  const handleSaveRecipe = async (recipe) => {
+
+    console.log("recipe I want to save", recipe)
+   
+    let recipeToSave = {label: recipe.label, image: recipe.image, url: recipe.url}
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
@@ -61,16 +55,18 @@ const SearchRecipes = () => {
     }
 
     try {
+      console.log("attempting mutation", recipeToSave)
      const {data} = await saveRecipe({
-      variables: {recipeData:{...recipeToSave}}
+      variables: {label: recipe.label, image: recipe.image, url: recipe.url}
      })
+     console.log(data)
 
-      setSavedRecipeIds([...savedRecipeIds, recipeToSave.recipeId]);
+      setSavedRecipeIds([...savedRecipeIds, data.addRecipe.id]);
     } catch (err) {
       console.error(err);
     }
   };
-// TODO:PROPERTY CHAINING IN CARD BELOW MUST MATCH recipeData
+
   return (
     <>
       {/* <div className="text-light bg-dark p-5">
@@ -105,9 +101,10 @@ const SearchRecipes = () => {
             : 'Search for a recipe to begin'}
         </h2>
         <Row>
-          {searchedRecipes.map((recipe) => {
+          {searchedRecipes.map(({recipe}) => {
+            // console.log("RENDERING RECIPES", recipe)
             return (
-              <Col md="4" key={recipe.recipeId}>
+              <Col md="4" key={recipe.url}>
                 <Card border='dark'>
                   {recipe.image ? (
                     <Card.Img src={recipe.image} alt={`The cover for ${recipe.url}`} variant='top' />
@@ -117,14 +114,14 @@ const SearchRecipes = () => {
                     <p className='small'>Recipe: {recipe.label}</p>
                     <Card.Text>{recipe.description}</Card.Text>
                     {Auth.loggedIn() && (
-                      <Button
-                        disabled={savedRecipeIds?.some((savedRecipeId) => savedRecipeId === recipe.recipeId)}
-                        className='btn-block btn-info'
-                        onClick={() => handleSaveRecipe(recipe.recipeId)}>
-                        {savedRecipeIds?.some((savedRecipeId) => savedRecipeId === recipe.recipeId)
-                          ? 'This recipe has already been saved!'
-                          : 'Save this Recipe!'}
-                      </Button>
+                 <Button
+                 disabled={savedRecipeIds?.includes(recipe.url)}
+                 className='btn-block btn-info'
+                 onClick={() => handleSaveRecipe(recipe)}>
+                 {savedRecipeIds?.includes(recipe.url)
+                   ? 'This recipe has already been saved!'
+                   : 'Save this Recipe!'}
+               </Button>
                     )}
                   </Card.Body>
                 </Card>
