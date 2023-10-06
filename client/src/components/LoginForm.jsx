@@ -15,47 +15,47 @@ const LoginForm = () => {
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
-  // const [login, {error}] = useMutation(LOGIN_USER)
-  // useEffect(()=>{
-  //   if(error){
-  //     setShowAlert(true)
-  //   }else{
-  //     setShowAlert(false)
-  //   }
-  //   }, [error])
+  const [login, {error}] = useMutation(LOGIN_USER)
+  useEffect(()=>{
+    if(error){
+      setShowAlert(true)
+    }else{
+      setShowAlert(false)
+    }
+    }, [error])
 
-  // const handleInputChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setUserFormData({ ...userFormData, [name]: value });
-  // };
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUserFormData({ ...userFormData, [name]: value });
+  };
 
-  // const handleFormSubmit = async (event) => {
-  //   event.preventDefault();
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
 
-  //   // check if form has everything (as per react-bootstrap docs)
-  //   const form = event.currentTarget;
-  //   if (form.checkValidity() === false) {
-  //     event.preventDefault();
-  //     event.stopPropagation();
-  //   }
+    // check if form has everything (as per react-bootstrap docs)
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
 
-  //   try {
-  //     // const response = await loginUser(userFormData);
-  //     const {data}= await login({
-  //       variables:{...userFormData}
-  //     })
+    try {
+      // const response = await loginUser(userFormData);
+      const {data}= await login({
+        variables:{...userFormData}
+      })
 
       
-  //     Auth.login(data.login.token);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
+      Auth.login(data.login.token);
+    } catch (err) {
+      console.error(err);
+    }
 
-  //   setUserFormData({
-  //     email: '',
-  //     password: '',
-  //   });
-  // };
+    setUserFormData({
+      email: '',
+      password: '',
+    });
+  };
 
   return (
     <>
@@ -88,9 +88,9 @@ const LoginForm = () => {
       {/* </Form> */}
 
       <Form.Field>
-  <Form.Label>Name</Form.Label>
+  <Form.Label>Email</Form.Label>
   <Form.Control>
-    <Form.Input placeholder="Username" name="name" value={userFormData.email}  />
+    <Form.Input placeholder="Email" name="email" type="email" value={userFormData.email} onChange={handleInputChange} required />
     <Icon align="left">
       <i className="github" />
     </Icon>
@@ -99,7 +99,7 @@ const LoginForm = () => {
 <Form.Field>
   <Form.Label>Password</Form.Label>
   <Form.Control>
-    <Form.Input placeholder="Password" name="password" type="password" value={userFormData.email} />
+    <Form.Input placeholder="Password" name="password" type="password" value={userFormData.password}  onChange={handleInputChange} required/>
     <Icon align="left">
       <i className="github" />
     </Icon>
