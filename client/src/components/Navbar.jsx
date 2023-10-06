@@ -1,4 +1,5 @@
 // import { useState } from "react";
+import '../assets/style.css'
 import { Link } from "react-router-dom";
 import "bulma/css/bulma.min.css";
 import {
