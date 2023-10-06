@@ -73,7 +73,7 @@ const SearchRecipes = () => {
 // TODO:PROPERTY CHAINING IN CARD BELOW MUST MATCH recipeData
   return (
     <>
-      <div className="text-light bg-dark p-5">
+      {/* <div className="text-light bg-dark p-5">
         <Container>
           <h1>Search for Recipes!</h1>
           <Form onSubmit={handleFormSubmit}>
@@ -132,7 +132,7 @@ const SearchRecipes = () => {
             );
           })}
         </Row>
-      </Container>
+      </Container> */}
     </>
   );
 };
