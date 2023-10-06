@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "dotenv": "^16.3.1",
-    "react-bootstrap": "^2.9.0"
+    "react-bootstrap": "^2.9.0",
+    "react-bulma-components": "^4.1.0"
   }
 }
