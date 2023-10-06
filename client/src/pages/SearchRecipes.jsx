@@ -66,7 +66,37 @@ const SearchRecipes = () => {
       console.error(err);
     }
   };
+  const autoPopSearches = [
+    { term: 'Protein', searchTerm: 'Protein' },
+    { term: 'Keto', searchTerm: 'Keto' },
+    { term: 'Low Calorie', searchTerm: 'Low Calorie' },
+    { term: 'Vegan', searchTerm: 'Vegan' },
+  ];
+  const handleAutoPopSearch = async (searchTerm) => {
+    setSearchTerm(searchTerm);
+    if (!searchTerm) {
+      return false;
+    }
 
+    try {
+      const response = await fetch(`/searchRecipes/${searchTerm}`);;
+     
+      if (!response.ok) {
+        throw new Error('something went wrong!');
+      }
+
+      const data = await response.json();
+      console.log("Data", data.hits)
+
+    
+      setSearchedRecipes(data.hits);
+      setSearchTerm('');
+    } catch (err) {
+      console.error(err);
+    }
+ 
+
+  };
   return (
     <>
       <div className="text-light bg-dark p-5">
@@ -92,10 +122,26 @@ const SearchRecipes = () => {
             </Row>
           </Form>
         </Container>
+        
       </div>
 
       <Container>
-        <h2 className='pt-5'>
+      <div className="mt-3"> Quick Search: 
+          {autoPopSearches.map((search) => (
+            <Button
+              key={search.searchTerm}
+              variant="primary"
+              className="mr-2"
+              onClick={(e) => {
+                handleAutoPopSearch(search.searchTerm);
+              }}
+            >
+              {search.term}
+            </Button>
+          ))}
+        </div>
+
+        <h2 className="pt-5">
           {searchedRecipes.length
             ? `Viewing ${searchedRecipes.length} results:`
             : 'Search for a recipe to begin'}
