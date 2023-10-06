@@ -1,6 +1,8 @@
-// see SignupForm.js for comments
 import { useState, useEffect } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
+import { Form, Button, Icon } from 'react-bulma-components';
+import 'bulma/css/bulma.min.css';
+import {Link} from 'react-router-dom'
+// import { Form } from 'react-bootstrap';
 import {useMutation} from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
@@ -30,16 +32,11 @@ const LoginForm = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    // check if form has everything (as per react-bootstrap docs)
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
+    console.log(event.currentTarget);
+    console.log(event.target);
+    
     try {
-      // const response = await loginUser(userFormData);
-      const {data}= await login({
+        const {data}= await login({
         variables:{...userFormData}
       })
 
@@ -57,42 +54,27 @@ const LoginForm = () => {
 
   return (
     <>
-      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-        <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
-          Something went wrong with your login credentials!
-        </Alert>
-        <Form.Group className='mb-3'>
-          <Form.Label htmlFor='email'>Email</Form.Label>
-          <Form.Control
-            type='text'
-            placeholder='Your email'
-            name='email'
-            onChange={handleInputChange}
-            value={userFormData.email}
-            required
-          />
-          <Form.Control.Feedback type='invalid'>Email is required!</Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group className='mb-3'>
-          <Form.Label htmlFor='password'>Password</Form.Label>
-          <Form.Control
-            type='password'
-            placeholder='Your password'
-            name='password'
-            onChange={handleInputChange}
-            value={userFormData.password}
-            required
-          />
-          <Form.Control.Feedback type='invalid'>Password is required!</Form.Control.Feedback>
-        </Form.Group>
-        <Button
-          disabled={!(userFormData.email && userFormData.password)}
-          type='submit'
-          variant='success'>
-          Submit
-        </Button>
-      </Form>
+      <Form.Field>
+  <Form.Label>Email</Form.Label>
+  <Form.Control>
+    <Form.Input placeholder="Email" name="email" type="email" value={userFormData.email} onChange={handleInputChange} required />
+    <Icon align="left">
+      <i className="github" />
+    </Icon>
+  </Form.Control>
+</Form.Field>
+<Form.Field>
+  <Form.Label>Password</Form.Label>
+  <Form.Control>
+    <Form.Input placeholder="Password" name="password" type="password" value={userFormData.password}  onChange={handleInputChange} required/>
+    <Icon align="left">
+      <i className="github" />
+    </Icon>
+  </Form.Control>
+</Form.Field>
+<Button.Group>
+  <Button disabled={!(userFormData.email && userFormData.password)} type="submit" fullwidth rounded color="primary" onClick={handleFormSubmit}>Login</Button>
+</Button.Group>
     </>
   );
 };
