@@ -24,15 +24,15 @@ const AppNavbar = () => {
   return (
     <>
       
-      <Navbar className=" pt-5 bg-dark pb-5" height="200">
+      <Navbar className="pt-5 pb-5 navBar" height="200">
         
-        <Navbar.Item as={Link} href="/" className="text-light is-size-3 px-6" style={{textDecoration: 'none'}}>Home</Navbar.Item>
+        <Navbar.Item as={Link} href="/" className="is-size-3 px-6 navLinks" style={{textDecoration: 'none'}}>Home</Navbar.Item>
 
-        <Navbar.Item as={Link} href="/savedRecipes" className="text-light is-size-5 px-6" style={{textDecoration: 'none'}}>My Saved Recipe Book</Navbar.Item>
+        <Navbar.Item as={Link} href="/savedRecipes" className="is-size-5 px-6 navLinks" style={{textDecoration: 'none'}}>My Saved Recipe Book</Navbar.Item>
 
         
-          <Navbar.Item as={Link}  href="/login" className="text-light px-6 mx-auto" style={{textDecoration: 'none'}}>Login</Navbar.Item>
-          <Navbar.Item as={Link}  href="/signup" className="text-light px-6 mx-auto" style={{textDecoration: 'none'}}>Sign Up</Navbar.Item>
+          <Navbar.Item as={Link}  href="/login" className="px-6 mx-auto navLinks" style={{textDecoration: 'none'}}>Login</Navbar.Item>
+          <Navbar.Item as={Link}  href="/signup" className="px-6 mx-auto navLinks" style={{textDecoration: 'none'}}>Sign Up</Navbar.Item>
         
       </Navbar>
       
