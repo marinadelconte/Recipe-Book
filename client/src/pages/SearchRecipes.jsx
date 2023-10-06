@@ -61,7 +61,7 @@ const SearchRecipes = () => {
      })
      console.log(data)
 
-      setSavedRecipeIds([...savedRecipeIds, data.addRecipe.id]);
+      setSavedRecipeIds([...savedRecipeIds, recipe.url]);
     } catch (err) {
       console.error(err);
     }
@@ -165,7 +165,7 @@ const SearchRecipes = () => {
                  className='btn-block btn-info'
                  onClick={() => handleSaveRecipe(recipe)}>
                  {savedRecipeIds?.includes(recipe.url)
-                   ? 'This recipe has already been saved!'
+                   ? 'This recipe is saved!'
                    : 'Save this Recipe!'}
                </Button>
                     )}
