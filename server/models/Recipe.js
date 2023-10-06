@@ -22,21 +22,17 @@ const recipeSchema = new Schema({
     type: String
     
   },
-  healthLabels: {
-    type: [String]
-  },
   image: {
     type: String
 
-  },
-  ingredients: {
-    type: [ingredientSchema]
-   
   },
   url: {
     type: String
     
   },
+  yield: {
+    type: Number
+  }
   // category: {
   //   type: Schema.Types.ObjectId,
   //   ref: 'Category',
