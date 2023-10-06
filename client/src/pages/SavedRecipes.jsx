@@ -57,6 +57,9 @@ const SavedRecipes = () => {
                 <Card.Title>{recipe.label}</Card.Title>
                 <Card.Text>
                   <p>{recipe.url}</p>
+                  <p>Servings: {recipe.yield}</p>
+                  <p>Cal Per Dish: {Math.round(recipe.calories)}</p>
+                  <p>Calories Per Serving: {Math.round(recipe.calories / recipe.yield)}</p>
                  
                 </Card.Text>
                 <Button onClick={() => handleDeleteRecipe(recipe)}>Delete</Button>
