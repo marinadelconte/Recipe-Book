@@ -32,16 +32,11 @@ const LoginForm = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    // check if form has everything (as per react-bootstrap docs)
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
+    console.log(event.currentTarget);
+    console.log(event.target);
+    
     try {
-      // const response = await loginUser(userFormData);
-      const {data}= await login({
+        const {data}= await login({
         variables:{...userFormData}
       })
 
@@ -59,34 +54,6 @@ const LoginForm = () => {
 
   return (
     <>
-      {/* <Form noValidate validated={validated} onSubmit={handleFormSubmit}> */}
-        {/* <title>Login</title>
-         <input
-            type='text'
-            placeholder='Your email'
-            name='email'
-            onChange={handleInputChange}
-            value={userFormData.email}
-            required
-          ></input>
-        
-          <input
-            type='password'
-            placeholder='Your password'
-            name='password'
-            onChange={handleInputChange}
-            value={userFormData.password}
-            required
-            ></input>
-                 
-        <button
-          disabled={!(userFormData.email && userFormData.password)}
-          type='submit'
-          color='success'>
-          Submit
-        </button> */}
-      {/* </Form> */}
-
       <Form.Field>
   <Form.Label>Email</Form.Label>
   <Form.Control>
@@ -106,7 +73,7 @@ const LoginForm = () => {
   </Form.Control>
 </Form.Field>
 <Button.Group>
-  <Button fullwidth rounded color="primary" >Login</Button>
+  <Button disabled={!(userFormData.email && userFormData.password)} type="submit" fullwidth rounded color="primary" onClick={handleFormSubmit}>Login</Button>
 </Button.Group>
     </>
   );
