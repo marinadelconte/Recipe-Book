@@ -47,7 +47,7 @@ const SearchRecipes = () => {
 
     console.log("recipe I want to save", recipe)
    
-    let recipeToSave = {label: recipe.label, image: recipe.image, url: recipe.url}
+    let recipeToSave = {label: recipe.label, image: recipe.image, url: recipe.url, yield: recipe.yield, calories: recipe.calories}
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
@@ -57,7 +57,7 @@ const SearchRecipes = () => {
     try {
       console.log("attempting mutation", recipeToSave)
      const {data} = await saveRecipe({
-      variables: {label: recipe.label, image: recipe.image, url: recipe.url}
+      variables: {label: recipe.label, image: recipe.image, url: recipe.url, yield: recipe.yield, calories: recipe.calories}
      })
      console.log(data)
 
@@ -69,7 +69,7 @@ const SearchRecipes = () => {
 
   return (
     <>
-      {/* <div className="text-light bg-dark p-5">
+      <div className="text-light bg-dark p-5">
         <Container>
           <h1>Search for Recipes!</h1>
           <Form onSubmit={handleFormSubmit}>
@@ -107,12 +107,12 @@ const SearchRecipes = () => {
               <Col md="4" key={recipe.url}>
                 <Card border='dark'>
                   {recipe.image ? (
-                    <Card.Img src={recipe.image} alt={`The cover for ${recipe.url}`} variant='top' />
+                    <Card.Img src={recipe.image} alt={''} variant='top' />
                   ) : null}
                   <Card.Body>
-                    <Card.Title>{recipe.url}</Card.Title>
-                    <p className='small'>Recipe: {recipe.label}</p>
-                    <Card.Text>{recipe.description}</Card.Text>
+                    <Card.Title>Recipe{recipe.label}</Card.Title>
+                    <p className='small'></p>
+                    <Card.Text><p><a href={recipe.url} target={recipe.url} rel="noopener noreferrer">View Details</a></p></Card.Text>
                     {Auth.loggedIn() && (
                  <Button
                  disabled={savedRecipeIds?.includes(recipe.url)}
@@ -129,7 +129,7 @@ const SearchRecipes = () => {
             );
           })}
         </Row>
-      </Container> */}
+      </Container>
     </>
   );
 };
