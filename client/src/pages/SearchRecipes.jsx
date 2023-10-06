@@ -107,12 +107,12 @@ const SearchRecipes = () => {
               <Col md="4" key={recipe.url}>
                 <Card border='dark'>
                   {recipe.image ? (
-                    <Card.Img src={recipe.image} alt={`The cover for ${recipe.url}`} variant='top' />
+                    <Card.Img src={recipe.image} alt={''} variant='top' />
                   ) : null}
                   <Card.Body>
-                    <Card.Title>{recipe.url}</Card.Title>
-                    <p className='small'>Recipe: {recipe.label}</p>
-                    <Card.Text>{recipe.description}</Card.Text>
+                    <Card.Title>Recipe{recipe.label}</Card.Title>
+                    <p className='small'></p>
+                    <Card.Text><p><a href={recipe.url} target={recipe.url} rel="noopener noreferrer">View Details</a></p></Card.Text>
                     {Auth.loggedIn() && (
                  <Button
                  disabled={savedRecipeIds?.includes(recipe.url)}
