@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Container,
   Card,
@@ -8,18 +8,16 @@ import {
 } from 'react-bootstrap';
 import {useMutation, useQuery} from '@apollo/client';
 import Auth from '../utils/auth';
-import { removeRecipeId } from '../utils/localStorage';
+import { saveRecipeIds, getSavedRecipeIds, removeRecipeId } from '../utils/localStorage';
 import { REMOVE_RECIPE } from '../utils/mutations';
 import { QUERY_ME } from '../utils/queries';
 
 const SavedRecipes = () => {
   const [removeRecipe, {error}] = useMutation(REMOVE_RECIPE);
-  const {loading, data} = useQuery(QUERY_ME);
+  const {loading, data, refetch} = useQuery(QUERY_ME);
   const userData = data?.me || {};
-  const userDataLength = Object.keys(userData).length;
-  const savedRecipes = userData.savedRecipes || [];
   const recipes = userData.recipes || [];
-
+  
   const handleDeleteRecipe = async (recipe) => { 
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -33,14 +31,16 @@ const SavedRecipes = () => {
       });
 
       removeRecipeId(recipe._id); 
-      window.location.reload(false)
-      console.log(recipe._id)
-      console.log(recipe)
+      await refetch();
       
     } catch (err) {
       console.error(err);
     }
   };
+
+  useEffect(() => {
+   
+  }, [recipes]);
 
   return (
     <>
