@@ -1,6 +1,8 @@
-// see SignupForm.js for comments
 import { useState, useEffect } from 'react';
-import { Form, Button, Alert } from 'react-bulma-components';
+import { Form } from 'react-bulma-components';
+import 'bulma/css/bulma.min.css';
+import {Link} from 'react-router-dom'
+// import { Form } from 'react-bootstrap';
 import {useMutation} from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
@@ -58,40 +60,31 @@ const LoginForm = () => {
   return (
     <>
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-        <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
-          Something went wrong with your login credentials!
-        </Alert>
-        <Form.Group className='mb-3'>
-          <Form.Label htmlFor='email'>Email</Form.Label>
-          <Form.Control
+        <title>Login</title>
+         <input
             type='text'
             placeholder='Your email'
             name='email'
             onChange={handleInputChange}
             value={userFormData.email}
             required
-          />
-          <Form.Control.Feedback type='invalid'>Email is required!</Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group className='mb-3'>
-          <Form.Label htmlFor='password'>Password</Form.Label>
-          <Form.Control
+          >Email</input>
+        
+          <input
             type='password'
             placeholder='Your password'
             name='password'
             onChange={handleInputChange}
             value={userFormData.password}
             required
-          />
-          <Form.Control.Feedback type='invalid'>Password is required!</Form.Control.Feedback>
-        </Form.Group>
-        <Button
+            >Password</input>
+                 
+        <button
           disabled={!(userFormData.email && userFormData.password)}
           type='submit'
-          variant='success'>
+          color='success'>
           Submit
-        </Button>
+        </button>
       </Form>
     </>
   );
