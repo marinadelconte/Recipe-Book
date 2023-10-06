@@ -20,9 +20,10 @@ export const QUERY_USERS = gql`
       recipes {
         _id
         label
-        healthLabels
         image
         url
+        yield
+        calories
         }
     }
   }
@@ -62,6 +63,8 @@ export const QUERY_ME = gql`
       image
       label
       url
+      yield
+      calories
     }
   }
   }
