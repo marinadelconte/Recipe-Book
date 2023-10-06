@@ -25,19 +25,22 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_RECIPE = gql`
-  mutation addRecipe($label: String, $healthLabels: String, $image: String, $url: String) {
-    addRecipe(label: $label, healthLabels: $healthLabels, image: $image, url: $ur) {
+  mutation AddRecipe($label: String, $image: String, $url: String) {
+  addRecipe(label: $label, image: $image, url: $url) {
+    _id
+        username
+    recipes {
       _id
       label
-      healthLabels
       image
-      url {
-        _id
-        username
-      }
+      url
     }
+
   }
+}
 `;
+
+
 
 export const REMOVE_RECIPE = gql`
   mutation removeRecipe($recipeId: ID!) {
