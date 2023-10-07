@@ -21,6 +21,9 @@ type Ingredient {
     url: String
     yield: Int
     calories: Float
+    fats: Float
+    carbs: Float
+    protein: Float
 
     }
 
@@ -40,7 +43,7 @@ type Ingredient {
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addRecipe(label: String, image: String, url: String, yield: Int, calories: Float): User
+    addRecipe(label: String, image: String, url: String, yield: Int, calories: Float, fats: Float, carbs: Float, protein: Float): User
     removeRecipe(recipeId: ID!): User
    
   }
