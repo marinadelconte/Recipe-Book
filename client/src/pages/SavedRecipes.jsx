@@ -8,7 +8,7 @@ import {
 } from 'react-bootstrap';
 import {useMutation, useQuery} from '@apollo/client';
 import Auth from '../utils/auth';
-import { saveRecipeIds, getSavedRecipeIds, removeRecipeId } from '../utils/localStorage';
+import { removeRecipeId } from '../utils/localStorage';
 import { REMOVE_RECIPE } from '../utils/mutations';
 import { QUERY_ME } from '../utils/queries';
 
@@ -59,8 +59,11 @@ const SavedRecipes = () => {
                 <Card.Title>{recipe.label}</Card.Title>
                 <Card.Text>
                   <p>Servings: {recipe.yield}</p>
-                  <p>Cal Per Dish: {Math.round(recipe.calories)}</p>
-                  <p>Calories Per Serving: {Math.round(recipe.calories / recipe.yield)}</p>
+                  <p>Macros Per Dish:</p>
+                  <p>Calories: {Math.round(recipe.calories)} Protein: {Math.round(recipe.protein)}g Carbs: {Math.round(recipe.carbs)}g Fats: {Math.round(recipe.fats)}g</p>
+                  <p>Macros Per Serving:</p>
+                  <p>Calories: {Math.round(recipe.calories / recipe.yield)} Protein: {Math.round(recipe.protein / recipe.yield)}g Carbs: {Math.round(recipe.carbs / recipe.yield)}g Fats: {Math.round(recipe.fats / recipe.yield)}g</p>
+                  
                   <p><a href={recipe.url} target={recipe.url} rel="noopener noreferrer">See All Details</a></p>
 
                  
