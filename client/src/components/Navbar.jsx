@@ -31,18 +31,16 @@ const AppNavbar = () => {
         {Auth.loggedIn() ? (
             <>
 
-        <Navbar.Item as={Link} href="/savedRecipes" className="text-light is-size-5 px-6" style={{textDecoration: 'none'}}>My Saved Recipe Book</Navbar.Item>
-        <Link className="btn btn-lg btn-info m-2" to="/me">
-                Welcome {Auth.getProfile().data.username}
-              </Link>
+         <Navbar.Item as={Link} href="/savedRecipes" className="text-light is-size-5 px-6" style={{textDecoration: 'none'}}> {Auth.getProfile().data.username}'s Saved Recipe's</Navbar.Item>
+        
               <button className="btn btn-lg btn-light m-2" onClick={logout}>
                 Logout
               </button>
         </>
          ) : (
           <>
+          
           <Navbar.Item as={Link}  href="/login" className="text-light px-6 mx-auto" style={{textDecoration: 'none'}}>Login</Navbar.Item>
-         
           <Navbar.Item as={Link}  href="/signup" className="text-light px-6 mx-auto" style={{textDecoration: 'none'}}>Sign Up</Navbar.Item>
           </>
           )}
