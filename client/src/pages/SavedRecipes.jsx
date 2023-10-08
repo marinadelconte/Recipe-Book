@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Container,
   Card,
@@ -14,12 +14,10 @@ import { QUERY_ME } from '../utils/queries';
 
 const SavedRecipes = () => {
   const [removeRecipe, {error}] = useMutation(REMOVE_RECIPE);
-  const {loading, data} = useQuery(QUERY_ME);
+  const {loading, data, refetch} = useQuery(QUERY_ME);
   const userData = data?.me || {};
-  const userDataLength = Object.keys(userData).length;
-  const savedRecipes = userData.savedRecipes || [];
   const recipes = userData.recipes || [];
-
+  
   const handleDeleteRecipe = async (recipe) => { 
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -33,7 +31,7 @@ const SavedRecipes = () => {
       });
 
       removeRecipeId(recipe._id); 
-      window.location.reload(false)
+      await refetch();
       console.log(recipe._id)
       console.log(recipe)
       
@@ -41,6 +39,10 @@ const SavedRecipes = () => {
       console.error(err);
     }
   };
+
+  useEffect(() => {
+   
+  }, [recipes]);
 
   return (
     <>
@@ -57,8 +59,11 @@ const SavedRecipes = () => {
                 <Card.Title>{recipe.label}</Card.Title>
                 <Card.Text>
                   <p>Servings: {recipe.yield}</p>
-                  <p>Cal Per Dish: {Math.round(recipe.calories)}</p>
-                  <p>Calories Per Serving: {Math.round(recipe.calories / recipe.yield)}</p>
+                  <p>Macros Per Dish:</p>
+                  <p>Calories: {Math.round(recipe.calories)} Protein: {Math.round(recipe.protein)}g Carbs: {Math.round(recipe.carbs)}g Fats: {Math.round(recipe.fats)}g</p>
+                  <p>Macros Per Serving:</p>
+                  <p>Calories: {Math.round(recipe.calories / recipe.yield)} Protein: {Math.round(recipe.protein / recipe.yield)}g Carbs: {Math.round(recipe.carbs / recipe.yield)}g Fats: {Math.round(recipe.fats / recipe.yield)}g</p>
+                  
                   <p><a href={recipe.url} target={recipe.url} rel="noopener noreferrer">See All Details</a></p>
 
                  
