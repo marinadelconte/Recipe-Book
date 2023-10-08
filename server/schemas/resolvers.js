@@ -46,15 +46,18 @@ const resolvers = {
 
       return { token, user };
     },
-    addRecipe: async (parent, { label, image, url, yield, calories }, context) => {
-      console.log(label, image, url, yield);
+    addRecipe: async (parent, { label, image, url, yield, calories, fats, carbs, protein }, context) => {
+      console.log(label, image, url, yield, fats, carbs, protein);
       if (context.user) {
         const recipe = await Recipe.create({
           label,
           image,
           url,
           yield,
-          calories
+          calories,
+          fats,
+          carbs,
+          protein
         });
         // console.log("recipe",recipe)
         const user = await User.findOneAndUpdate(

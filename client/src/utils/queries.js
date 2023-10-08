@@ -65,6 +65,9 @@ export const QUERY_ME = gql`
       url
       yield
       calories
+      fats
+      carbs
+      protein
     }
   }
   }

@@ -47,7 +47,7 @@ const SearchRecipes = () => {
 
     console.log("recipe I want to save", recipe)
    
-    let recipeToSave = {label: recipe.label, image: recipe.image, url: recipe.url, yield: recipe.yield, calories: recipe.calories}
+    let recipeToSave = {label: recipe.label, image: recipe.image, url: recipe.url, yield: recipe.yield, calories: recipe.calories, fats: recipe.totalDaily.FAT.quantity, carbs: recipe.totalDaily.CHOCDF.quantity, protein: recipe.totalDaily.PROCNT.quantity}
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
@@ -57,16 +57,46 @@ const SearchRecipes = () => {
     try {
       console.log("attempting mutation", recipeToSave)
      const {data} = await saveRecipe({
-      variables: {label: recipe.label, image: recipe.image, url: recipe.url, yield: recipe.yield, calories: recipe.calories}
+      variables: {label: recipe.label, image: recipe.image, url: recipe.url, yield: recipe.yield, calories: recipe.calories, fats: recipe.totalDaily.FAT.quantity, carbs: recipe.totalDaily.CHOCDF.quantity, protein: recipe.totalDaily.PROCNT.quantity}
      })
      console.log(data)
 
-      setSavedRecipeIds([...savedRecipeIds, data.addRecipe.id]);
+      setSavedRecipeIds([...savedRecipeIds, recipe.url]);
     } catch (err) {
       console.error(err);
     }
   };
+  const autoPopSearches = [
+    { term: 'Protein', searchTerm: 'Protein' },
+    { term: 'Keto', searchTerm: 'Keto' },
+    { term: 'Low Calorie', searchTerm: 'Low Calorie' },
+    { term: 'Vegan', searchTerm: 'Vegan' },
+  ];
+  const handleAutoPopSearch = async (searchTerm) => {
+    setSearchTerm(searchTerm);
+    if (!searchTerm) {
+      return false;
+    }
 
+    try {
+      const response = await fetch(`/searchRecipes/${searchTerm}`);;
+     
+      if (!response.ok) {
+        throw new Error('something went wrong!');
+      }
+
+      const data = await response.json();
+      console.log("Data", data.hits)
+
+    
+      setSearchedRecipes(data.hits);
+      setSearchTerm('');
+    } catch (err) {
+      console.error(err);
+    }
+ 
+
+  };
   return (
     <>
       <div className="text-light bg-dark p-5">
@@ -92,10 +122,26 @@ const SearchRecipes = () => {
             </Row>
           </Form>
         </Container>
+        
       </div>
 
       <Container>
-        <h2 className='pt-5'>
+      <div className="mt-3"> Quick Search: 
+          {autoPopSearches.map((search) => (
+            <Button
+              key={search.searchTerm}
+              variant="primary"
+              className="mr-2"
+              onClick={(e) => {
+                handleAutoPopSearch(search.searchTerm);
+              }}
+            >
+              {search.term}
+            </Button>
+          ))}
+        </div>
+
+        <h2 className="pt-5">
           {searchedRecipes.length
             ? `Viewing ${searchedRecipes.length} results:`
             : 'Search for a recipe to begin'}
@@ -119,7 +165,7 @@ const SearchRecipes = () => {
                  className='btn-block btn-info'
                  onClick={() => handleSaveRecipe(recipe)}>
                  {savedRecipeIds?.includes(recipe.url)
-                   ? 'This recipe has already been saved!'
+                   ? 'This recipe is saved!'
                    : 'Save this Recipe!'}
                </Button>
                     )}

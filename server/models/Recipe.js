@@ -35,12 +35,17 @@ const recipeSchema = new Schema({
   },
   calories: {
     type: Number
+  },
+  fats: {
+    type: Number
+  },
+  carbs: {
+    type: Number
+  },
+  protein: {
+    type: Number
   }
-  // category: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'Category',
-  //   required: true
-  // }
+
 });
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
