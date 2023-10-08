@@ -1,16 +1,15 @@
 import { useState, useEffect } from "react";
 
-// import { Container, Col, Form, Button, Card, Row} from 'react-bootstrap';
-
-import "bulma/css/bulma.min.css";
 import {
+  Container,
+  Col,
   Form,
   Button,
-  Icon,
-  Field,
-  Container,
-  Heading,
-} from "react-bulma-components";
+  Card,
+  Row,
+  ButtonGroup,
+} from "react-bootstrap";
+import "bulma/css/bulma.min.css";
 
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
@@ -89,6 +88,133 @@ const SearchRecipes = () => {
 
   return (
     <>
+
+
+
+
+
+        <Container>
+          <h1>Search for Recipes!</h1>
+          
+          <Form onSubmit={handleFormSubmit}>
+            <Row>
+              <Col xs={12} md={8}>
+                <Form.Control
+                  name='searchTerm'
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  type='text'
+                  size='lg'
+                  placeholder='Search for a recipe'
+                />
+              </Col>
+              <Col xs={12} md={4}>
+                <Button type='submit' variant='success' size='lg'>
+                  Submit Search
+                </Button>
+              </Col>
+            </Row>
+          </Form>
+        </Container>
+
+
+
+
+
+
+
+
+
+
+
+
+      <Container>
+        <h2 className='pt-5'>
+          {searchedRecipes.length
+            ? `Viewing ${searchedRecipes.length} results:`
+            : 'Search for a recipe to begin'}
+        </h2>
+        <Row>
+          {searchedRecipes.map(({recipe}) => {
+            // console.log("RENDERING RECIPES", recipe)
+            return (
+              <Col md="4" key={recipe.url}>
+                <Card border='dark'>
+                  {recipe.image ? (
+                    <Card.Img src={recipe.image} alt={''} variant='top' />
+                  ) : null}
+                  <Card.Body>
+                    <Card.Title>Recipe{recipe.label}</Card.Title>
+                    <p className='small'></p>
+                    <Card.Text><p><a href={recipe.url} target={recipe.url} rel="noopener noreferrer">View Details</a></p></Card.Text>
+                    {Auth.loggedIn() && (
+                 <Button
+                 disabled={savedRecipeIds?.includes(recipe.url)}
+                 className='btn-block btn-info'
+                 onClick={() => handleSaveRecipe(recipe)}>
+                 {savedRecipeIds?.includes(recipe.url)
+                   ? 'This recipe has already been saved!'
+                   : 'Save this Recipe!'}
+               </Button>
+                    )}
+                  </Card.Body>
+                </Card>
+              </Col>
+            );
+          })}
+        </Row>
+      </Container>
+
+
+
+
+
+
+
+
+      <div>
+        <Container>
+          <Card border="dark">
+            {recipe.image ? (
+              <Card.Img src={recipe.image} alt={""} variant="top" />
+            ) : null}
+            <Card.Content>
+              <Card.Title>Recipe{recipe.label}</Card.Title>
+              <p className="small"></p>
+              <Card.Text>
+                <p>
+                  <a
+                    href={recipe.url}
+                    target={recipe.url}
+                    rel="noopener noreferrer"
+                  >
+                    View Details
+                  </a>
+                </p>
+              </Card.Text>
+              {Auth.loggedIn() && (
+                <Button.Group>
+                  <Button
+                    disabled={savedRecipeIds?.includes(recipe.url)}
+                    className="btn-block btn-info"
+                    onClick={() => handleSaveRecipe(recipe)}
+                  >
+                    {savedRecipeIds?.includes(recipe.url)
+                      ? "This recipe has already been saved!"
+                      : "Save this Recipe!"}
+                  </Button>
+                </Button.Group>
+              )}
+            </Card.Content>
+          </Card>
+        </Container>
+      </div>
+    </>
+  );
+};
+
+export default SearchRecipes;
+
       {/* <div className="text-light bg-dark p-5">
         <Container>
           <h1>Search for Recipes!</h1>
@@ -151,86 +277,3 @@ const SearchRecipes = () => {
         </Row>
       </Container> */}
 
-
-
-
-
-      <Container className="pt-4 pb-5 navBar2 is-fluid">
-        <Heading className="has-text-centered is-size-3 navLinks">Search for Recipes!</Heading>
-
-        <Form.Field className="mx-5" onSubmit={handleFormSubmit}>
-          <Form.Control>
-            <Form.Input
-              placeholder="Search for a recipe"
-              name="searchTerm"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              type="text"
-              size="lg"
-              className="has-text-centered pr-6"
-            />
-            <Icon align="left">
-              <i className="github" />
-            </Icon>
-          </Form.Control>
-        </Form.Field>
-
-        <Button.Group>
-          <Button fullwidth className="mx-5 has-text-centered buttonSubmit2" type="submit" variant="success" size="lg">
-            Submit Search
-          </Button>
-        </Button.Group>
-      </Container>
-
-      <Container className="pb-5 navBar2 is-fluid" height="200">
-        <Heading className="has-text-centered is-size-5 navLinks">
-          {searchedRecipes.length
-            ? `Viewing ${searchedRecipes.length} results:`
-            : "Search for a recipe to begin"}
-        </Heading>
-
-        {searchedRecipes.map(({ recipe }) => {
-          return (
-            <Column md="4" key={recipe.url}>
-              <Form.Field>
-                {recipe.image ? (
-                  <Card.Img src={recipe.image} alt={""} variant="top" />
-                ) : null}
-                <Card.Body>
-                  <Card.Header>Recipe{recipe.label}</Card.Header>
-                  <p className="small"></p>
-                  <Card.Text>
-                    <p>
-                      <a
-                        href={recipe.url}
-                        target={recipe.url}
-                        rel="noopener noreferrer"
-                      >
-                        View Details
-                      </a>
-                    </p>
-                  </Card.Text>
-                  {Auth.loggedIn() && (
-                    <Button.Group>
-                      <Button
-                        disabled={savedRecipeIds?.includes(recipe.url)}
-                        className="btn-block btn-info"
-                        onClick={() => handleSaveRecipe(recipe)}
-                      >
-                        {savedRecipeIds?.includes(recipe.url)
-                          ? "This recipe has already been saved!"
-                          : "Save this Recipe!"}
-                      </Button>
-                    </Button.Group>
-                  )}
-                </Card.Body>
-              </Form.Field>
-            </Column>
-          );
-        })}
-      </Container>
-    </>
-  );
-};
-
-export default SearchRecipes;
