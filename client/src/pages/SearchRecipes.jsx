@@ -10,6 +10,7 @@ import {
   Field,
   Container,
   Heading,
+  Card
 } from "react-bulma-components";
 
 import { useMutation } from "@apollo/client";
@@ -34,7 +35,7 @@ const SearchRecipes = () => {
     if (!searchTerm) {
       return false;
     }
-
+console.log(searchTerm)
     try {
       const response = await fetch(`/searchRecipes/${searchTerm}`);
 
@@ -194,7 +195,7 @@ const SearchRecipes = () => {
       <Container className="pt-4 pb-5 navBar2 is-fluid">
         <Heading className="has-text-centered is-size-3 navLinks">Search for Recipes!</Heading>
 
-        <Form.Field className="mx-5" onSubmit={handleFormSubmit}>
+        <Form.Field className="mx-5">
           <Form.Control>
             <Form.Input
               placeholder="Search for a recipe"
@@ -209,12 +210,15 @@ const SearchRecipes = () => {
               <i className="github" />
             </Icon>
           </Form.Control>
+          <Button fullwidth  onClick={handleFormSubmit} className="mx-5 has-text-centered buttonSubmit2" type="submit" variant="success" size="lg">
+            Submit Search
+          </Button>
         </Form.Field>
 
         <Button.Group>
-          <Button fullwidth className="mx-5 has-text-centered buttonSubmit2" type="submit" variant="success" size="lg">
+          {/* <Button fullwidth className="mx-5 has-text-centered buttonSubmit2" type="submit" variant="success" size="lg">
             Submit Search
-          </Button>
+          </Button> */}
         </Button.Group>
       </Container>
 
@@ -227,15 +231,15 @@ const SearchRecipes = () => {
 
         {searchedRecipes.map(({ recipe }) => {
           return (
-            <Column md="4" key={recipe.url}>
+            <Container md="4" key={recipe.url}>
               <Form.Field>
                 {recipe.image ? (
-                  <Card.Img src={recipe.image} alt={""} variant="top" />
+                  <Card.Image src={recipe.image} alt={""} variant="top" className={"foodImage"}/>
                 ) : null}
-                <Card.Body>
+                <Container>
                   <Card.Header>Recipe{recipe.label}</Card.Header>
                   <p className="small"></p>
-                  <Card.Text>
+                  <Card.Content>
                     <p>
                       <a
                         href={recipe.url}
@@ -245,7 +249,7 @@ const SearchRecipes = () => {
                         View Details
                       </a>
                     </p>
-                  </Card.Text>
+                  </Card.Content>
                   {Auth.loggedIn() && (
                     <Button.Group>
                       <Button
@@ -259,9 +263,9 @@ const SearchRecipes = () => {
                       </Button>
                     </Button.Group>
                   )}
-                </Card.Body>
+                </Container>
               </Form.Field>
-            </Column>
+            </Container>
           );
         })}
       </Container>
