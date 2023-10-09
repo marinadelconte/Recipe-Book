@@ -28,12 +28,12 @@ const AppNavbar = () => {
   return (
     <>
       
-      <Navbar className=" pt-5 bg-dark pb-5" height="200">
-        <Navbar.Item as={Link} href="/" className="text-light is-size-3 px-6" style={{textDecoration: 'none'}}>Home</Navbar.Item>
+      <Navbar className=" pt-5 pb-5 navBar" height="200">
+        <Navbar.Item as={Link} href="/" className="navLinks is-size-3 px-6" style={{textDecoration: 'none'}}>Home</Navbar.Item>
         {Auth.loggedIn() ? (
             <>
 
-         <Navbar.Item as={Link} href="/savedRecipes" className="text-light is-size-5 px-6" style={{textDecoration: 'none'}}> {Auth.getProfile().data.username}'s Saved Recipe's</Navbar.Item>
+         <Navbar.Item as={Link} href="/savedRecipes" className="navLinks is-size-5 px-6" style={{textDecoration: 'none'}}> {Auth.getProfile().data.username}'s Saved Recipe's</Navbar.Item>
         
               <button className="btn btn-lg btn-light m-2" onClick={logout}>
                 Logout
@@ -42,8 +42,8 @@ const AppNavbar = () => {
          ) : (
           <>
           
-          <Navbar.Item as={Link}  href="/login" className="text-light px-6 mx-auto" style={{textDecoration: 'none'}}>Login</Navbar.Item>
-          <Navbar.Item as={Link}  href="/signup" className="text-light px-6 mx-auto" style={{textDecoration: 'none'}}>Sign Up</Navbar.Item>
+          <Navbar.Item as={Link}  href="/login" className="navLinks px-6 mx-auto" style={{textDecoration: 'none'}}>Login</Navbar.Item>
+          <Navbar.Item as={Link}  href="/signup" className="navLinks px-6 mx-auto" style={{textDecoration: 'none'}}>Sign Up</Navbar.Item>
           </>
           )}
       </Navbar>
