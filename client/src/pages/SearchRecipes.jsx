@@ -210,24 +210,43 @@ console.log(searchTerm)
               <i className="github" />
             </Icon>
           </Form.Control>
-          <Button fullwidth  onClick={handleFormSubmit} className="mx-5 has-text-centered buttonSubmit2" type="submit" variant="success" size="lg">
+          <Button fullwidth  onClick={handleFormSubmit} className="mt-2 has-text-centered buttonSubmit2 " type="submit" variant="success" size="lg">
             Submit Search
           </Button>
         </Form.Field>
 
-        <Button.Group>
+        {/* <Button.Group> */}
           {/* <Button fullwidth className="mx-5 has-text-centered buttonSubmit2" type="submit" variant="success" size="lg">
             Submit Search
           </Button> */}
-        </Button.Group>
+        {/* </Button.Group> */}
       </Container>
 
-      <Container className="pb-5 navBar2 is-fluid" height="200">
-        <Heading className="has-text-centered is-size-5 navLinks">
+      <Container className="pb-5 is-fluid" height="200">
+
+        <Heading className="has-text-centered mt-3 is-size-5 navLinks2">
           {searchedRecipes.length
             ? `Viewing ${searchedRecipes.length} results:`
             : "Search for a recipe to begin"}
         </Heading>
+
+      <div className="mt-5 pb-5"> Quick Search:  
+          {autoPopSearches.map((search) => (
+            <Button
+              key={search.searchTerm}
+              variant="primary"
+              className="mr-2 ml-2 mt-2"
+              onClick={(e) => {
+                handleAutoPopSearch(search.searchTerm);
+              }}
+            >
+              {search.term}
+            </Button>
+          ))}
+        </div>
+
+
+        
 
         {searchedRecipes.map(({ recipe }) => {
           return (
@@ -236,8 +255,8 @@ console.log(searchTerm)
                 {recipe.image ? (
                   <Card.Image src={recipe.image} alt={""} variant="top" className={"foodImage"}/>
                 ) : null}
-                <Container>
-                  <Card.Header>Recipe{recipe.label}</Card.Header>
+                <card>
+                  <Card.Header className="foodImage">Recipe{recipe.label}</Card.Header>
                   <p className="small"></p>
                   <Card.Content>
                     <p>
@@ -263,7 +282,7 @@ console.log(searchTerm)
                       </Button>
                     </Button.Group>
                   )}
-                </Container>
+                </card>
               </Form.Field>
             </Container>
           );
