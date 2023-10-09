@@ -35,9 +35,9 @@ const AppNavbar = () => {
 
          <Navbar.Item as={Link} href="/savedRecipes" className="navLinks is-size-5 px-6" style={{textDecoration: 'none'}}> {Auth.getProfile().data.username}'s Saved Recipe's</Navbar.Item>
         
-              <button className="btn btn-lg btn-light m-2" onClick={logout}>
+              <Navbar.Item className="logoutButton m-2" style={{textDecoration: 'none'}} onClick={logout}>
                 Logout
-              </button>
+              </Navbar.Item>
         </>
          ) : (
           <>
