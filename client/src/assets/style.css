@@ -1,0 +1,47 @@
+.buttonSubmit{
+
+    background-color: #355691;
+    color: whitesmoke;
+    
+    }
+.buttonSubmit2{
+
+    background-color: #DBAD6A;
+    color: whitesmoke;
+    
+    }
+
+
+.navLinks{
+
+
+color: whitesmoke;
+
+}
+
+.navLinks:hover{
+
+opacity: 60%;
+transition: color 0.5s;
+color: black;
+
+}
+
+.navBar{
+
+background-color: #63A375;
+
+}
+
+.navBar2{
+
+background-color: #63A375;
+
+}
+
+.foodImage{
+
+width: 30%;
+height: 30%;
+
+}
