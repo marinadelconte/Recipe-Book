@@ -9,26 +9,47 @@ The following application embodies a multitude of features that meet the require
 ## User Story
 
 ```md
-AS food enthusiasts we want to provide a interactive way to view and create a list of recipes 
+AS food enthusiasts we want to provide a interactive way to view and create a list of recipes and
+with healthy eating in mind we want easy access to delicious meals that are also clear about their nutritional value
 So THAT meal planning and enjoying our favorite dishes can be a quick and easy process that saves a great deal of time each week
+
 ```
 
 ## Acceptance Criteria
 
 ```md
-
+GIVEN a MERN-stack single-page application that runs off of an API
+WHEN I view the page I see a navbar, an area for search input, and a few buttons on a homepage
+THEN as I explore the navbar I can that that there is an option to login and sign-up
+WHEN I search for any meal or food title in the search input or by clicking the buttons without logging in
+THEN I receive a return of 20 options that includes an image of the dish, the name of the dish, and a link to the recipe 
+WHEN I click the link I am redirected to a site that hosts the recipe and instructions
+THEN after I navigate back to the website
+THEN I sign-up by filling out the username, email, and password
+WHEN I created my account I am then logged in and redirected to the homepage where I am greeted in the navbar and see an option for Saved Recipes
+WHEN I search for any meal or food title in the search input or by clicking the buttons while logged in
+THEN I receive a return of 20 options that includes an image of the dish, the name of the dish, a save button, and a link to the recipe 
+WHEN I click the link I am redirected to a site that host the recipe and instructions
+WHEN I click on the save button
+THEN my selection is added to my Saved Recipes page
+WHEN I visit my Saved Recipes page I can see all of the dishes that I have saved with their nutritional value, name of meal, a link to their recipe, and a delete button that removes it from my list
+THEN I click the link and I am redirected to a site that hosts the recipe and instructions
+WHEN I navigate back to the website
+THEN I click delete and the item is removed from my Saved Recipes list
+WHEN I go up to the Navbar I click logout and my session is ended until I login again
 ```
+
 
 ## Review
 
 This section is here to highlight the required elements needed for review:
 
-* My walkthrough video demonstrating the functionality of the application:
+* The following link will redirect you to our deployed link on Heroku:
 
 Refer to this [Heroku Deployed URL]() to view the functionality of this application
     
 
-* The URL to my ObjectRelationalMapping GitHub repository, with a unique name and this README to describe the project:
+* The following link will redirect you to our GitHub repository, with a unique name and this README to describe the project:
 
 Refer to this link [GitHub Repository](https://github.com/marinadelconte/Project-3) to view and explore the GitHub repo for this assignment
 
