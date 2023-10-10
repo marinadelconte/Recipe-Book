@@ -126,6 +126,7 @@ const SearchRecipes = () => {
   return (
     <>
       <Container className="pt-4 pb-5 navBar2 is-fluid">
+        
         <Heading className="has-text-centered is-size-3 navLinks">
           Search for Recipes!
         </Heading>
@@ -157,7 +158,8 @@ const SearchRecipes = () => {
           </Button>
         </Form.Field>
       </Container>
-
+      
+      <div className="bgContainer">
       <Container className="pb-5 is-fluid" height="200">
         <Heading className="has-text-centered mt-3 is-size-5 navLinks2">
           {searchedRecipes.length
@@ -234,7 +236,9 @@ const SearchRecipes = () => {
             );
           })}
         </div>
+        
       </Container>
+      </div>
     </>
   );
 };
