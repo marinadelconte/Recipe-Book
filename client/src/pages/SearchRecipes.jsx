@@ -186,12 +186,9 @@ const SearchRecipes = () => {
           {searchedRecipes.map(({ recipe }) => {
             return (
               <div className="column is-one-third" key={recipe.url}>
-                {/* <Container> */}
                 <div className="card">
-                  {/* <Form.Field> */}
 
                   {recipe.image ? (
-                    // <Card.Image src={recipe.image} alt={""} variant="top" className={"foodImage"}/>
                     <div class="card-image">
                       <figure class="image is-4by3">
                         <img src={recipe.image} alt={recipe.label} />
@@ -199,7 +196,6 @@ const SearchRecipes = () => {
                     </div>
                   ) : null}
                   <div className="card-content">
-                    {/* <card> */}
 
                     <div className="card-content">
                       <p class="title is-4">Recipe: {recipe.label}</p>
@@ -224,7 +220,7 @@ const SearchRecipes = () => {
                                 onClick={() => handleSaveRecipe(recipe)}
                               >
                                 {savedRecipeIds?.includes(recipe.url)
-                                  ? "This recipe has already been saved!"
+                                  ? "This recipe is saved!"
                                   : "Save this Recipe!"}
                               </Button>
                             </Button.Group>
@@ -233,10 +229,7 @@ const SearchRecipes = () => {
                       </div>
                     </div>
                   </div>
-                  {/* </card> */}
-                  {/* </Form.Field> */}
                 </div>
-                {/* </Container> */}
               </div>
             );
           })}
