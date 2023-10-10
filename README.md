@@ -19,14 +19,14 @@ So THAT meal planning and enjoying our favorite dishes can be a quick and easy p
 
 ```md
 GIVEN a MERN-stack single-page application that runs off of an API
-WHEN I view the page I see a navbar, an area for search input, and a few buttons on a homepage
-THEN as I explore the navbar I can that that there is an option to login and sign-up
+WHEN I view the page I see a Navbar, an area for search input, and a few buttons on a Homepage
+THEN as I explore the Navbar I can that that there is an option to login and sign-up
 WHEN I search for any meal or food title in the search input or by clicking the buttons without logging in
 THEN I receive a return of 20 options that includes an image of the dish, the name of the dish, and a link to the recipe 
 WHEN I click the link I am redirected to a site that hosts the recipe and instructions
 THEN after I navigate back to the website
 THEN I sign-up by filling out the username, email, and password
-WHEN I created my account I am then logged in and redirected to the homepage where I am greeted in the navbar and see an option for Saved Recipes
+WHEN I created my account I am then logged in and redirected to the Homepage where I am greeted in the Navbar and see an option for Saved Recipes
 WHEN I search for any meal or food title in the search input or by clicking the buttons while logged in
 THEN I receive a return of 20 options that includes an image of the dish, the name of the dish, a save button, and a link to the recipe 
 WHEN I click the link I am redirected to a site that host the recipe and instructions
@@ -46,7 +46,7 @@ This section is here to highlight the required elements needed for review:
 
 * The following link will redirect you to our deployed link on Heroku:
 
-Refer to this [Heroku Deployed URL]() to view the functionality of this application
+Refer to this [Heroku Deployed URL](https://project-3-app-mck-b96b86dfcabe.herokuapp.com/) to view the functionality of this application
     
 
 * The following link will redirect you to our GitHub repository, with a unique name and this README to describe the project:
@@ -56,12 +56,12 @@ Refer to this link [GitHub Repository](https://github.com/marinadelconte/Project
 ## Screenshots
 
 The following images reflect the functionality and final results of development for this command-line application:
+
+![A photo depicting the homepage of this application](./client/src/assets/project3Screenshot2.png)
     
-![Description](./assets/)
+![A photo depicting the login of this application](./client/src/assets/project3Screenshot1.png)
 
-![Description](./assets/)
+![A photo depicting the Saved Recipes of this application](./client/src/assets/project3Screenshot4.png)
 
-![Description](./assets/)
 
-![Description](./assets/)
 
