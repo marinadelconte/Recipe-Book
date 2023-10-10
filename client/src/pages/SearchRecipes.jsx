@@ -192,7 +192,8 @@ console.log(searchTerm)
 
 
 
-      <Container className="pt-4 pb-5 navBar2 is-fluid">
+        <div className="bgContainer" height="100%">
+      <Container className="pt-4 pb-5 navBar2 is-fluid" position="relative">
         <Heading className="has-text-centered is-size-3 navLinks">Search for Recipes!</Heading>
 
         <Form.Field className="mx-5">
@@ -221,6 +222,7 @@ console.log(searchTerm)
           </Button> */}
         {/* </Button.Group> */}
       </Container>
+      
 
       <Container className="pb-5 is-fluid" height="200">
 
@@ -244,7 +246,7 @@ console.log(searchTerm)
             </Button>
           ))}
         </div>
-
+       
 
         
 
@@ -288,6 +290,7 @@ console.log(searchTerm)
           );
         })}
       </Container>
+      </div>
     </>
   );
 };
