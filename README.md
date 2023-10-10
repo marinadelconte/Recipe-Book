@@ -57,11 +57,13 @@ Refer to this link [GitHub Repository](https://github.com/marinadelconte/Project
 
 The following images reflect the functionality and final results of development for this command-line application:
 
-![A photo depicting the homepage of this application](./client/src/assets/project3Screenshot2.png)
     
-![A photo depicting the login of this application](./client/src/assets/project3Screenshot1.png)
+![A photo depicting the homepage of this application](./client/src/assets/project3Screenshot5.png)
 
 ![A photo depicting the Saved Recipes of this application](./client/src/assets/project3Screenshot4.png)
 
+![A photo depicting the login of this application](./client/src/assets/project3Screenshot1.png)
+
+![A photo depicting the homepage of this application](./client/src/assets/project3Screenshot2.png)
 
 
