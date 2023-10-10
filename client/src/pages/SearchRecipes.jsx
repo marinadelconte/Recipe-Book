@@ -165,14 +165,14 @@ const SearchRecipes = () => {
             : "Search for a recipe to begin"}
         </Heading>
 
-        <div className="mt-5 pb-5">
+        <div className="mt-5 pb-5 is-size-2 has-text-weight-light">
           {" "}
           Quick Search:
           {autoPopSearches.map((search) => (
             <Button
               key={search.searchTerm}
               variant="primary"
-              className="mr-2 ml-2 mt-2"
+              className="mr-2 ml-2 mt-2 is-info quickButtons"
               onClick={(e) => {
                 handleAutoPopSearch(search.searchTerm);
               }}
