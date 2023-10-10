@@ -10,7 +10,7 @@ import {
   Field,
   Container,
   Heading,
-  Card
+  Card,
 } from "react-bulma-components";
 
 import { useMutation } from "@apollo/client";
@@ -35,7 +35,7 @@ const SearchRecipes = () => {
     if (!searchTerm) {
       return false;
     }
-console.log(searchTerm)
+    console.log(searchTerm);
     try {
       const response = await fetch(`/searchRecipes/${searchTerm}`);
 
@@ -56,9 +56,18 @@ console.log(searchTerm)
   const handleSaveRecipe = async (recipe) => {
     console.log("recipe I want to save", recipe);
 
-    console.log("recipe I want to save", recipe)
-   
-    let recipeToSave = {label: recipe.label, image: recipe.image, url: recipe.url, yield: recipe.yield, calories: recipe.calories, fats: recipe.totalDaily.FAT.quantity, carbs: recipe.totalDaily.CHOCDF.quantity, protein: recipe.totalDaily.PROCNT.quantity}
+    console.log("recipe I want to save", recipe);
+
+    let recipeToSave = {
+      label: recipe.label,
+      image: recipe.image,
+      url: recipe.url,
+      yield: recipe.yield,
+      calories: recipe.calories,
+      fats: recipe.totalDaily.FAT.quantity,
+      carbs: recipe.totalDaily.CHOCDF.quantity,
+      protein: recipe.totalDaily.PROCNT.quantity,
+    };
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
@@ -66,11 +75,20 @@ console.log(searchTerm)
     }
 
     try {
-      console.log("attempting mutation", recipeToSave)
-     const {data} = await saveRecipe({
-      variables: {label: recipe.label, image: recipe.image, url: recipe.url, yield: recipe.yield, calories: recipe.calories, fats: recipe.totalDaily.FAT.quantity, carbs: recipe.totalDaily.CHOCDF.quantity, protein: recipe.totalDaily.PROCNT.quantity}
-     })
-     console.log(data)
+      console.log("attempting mutation", recipeToSave);
+      const { data } = await saveRecipe({
+        variables: {
+          label: recipe.label,
+          image: recipe.image,
+          url: recipe.url,
+          yield: recipe.yield,
+          calories: recipe.calories,
+          fats: recipe.totalDaily.FAT.quantity,
+          carbs: recipe.totalDaily.CHOCDF.quantity,
+          protein: recipe.totalDaily.PROCNT.quantity,
+        },
+      });
+      console.log(data);
 
       setSavedRecipeIds([...savedRecipeIds, recipe.url]);
     } catch (err) {
@@ -78,10 +96,10 @@ console.log(searchTerm)
     }
   };
   const autoPopSearches = [
-    { term: 'Protein', searchTerm: 'Protein' },
-    { term: 'Keto', searchTerm: 'Keto' },
-    { term: 'Low Calorie', searchTerm: 'Low Calorie' },
-    { term: 'Vegan', searchTerm: 'Vegan' },
+    { term: "Protein", searchTerm: "Protein" },
+    { term: "Keto", searchTerm: "Keto" },
+    { term: "Low Calorie", searchTerm: "Low Calorie" },
+    { term: "Vegan", searchTerm: "Vegan" },
   ];
   const handleAutoPopSearch = async (searchTerm) => {
     setSearchTerm(searchTerm);
@@ -90,110 +108,27 @@ console.log(searchTerm)
     }
 
     try {
-      const response = await fetch(`/searchRecipes/${searchTerm}`);;
-     
+      const response = await fetch(`/searchRecipes/${searchTerm}`);
+
       if (!response.ok) {
-        throw new Error('something went wrong!');
+        throw new Error("something went wrong!");
       }
 
       const data = await response.json();
-      console.log("Data", data.hits)
+      console.log("Data", data.hits);
 
-    
       setSearchedRecipes(data.hits);
-      setSearchTerm('');
+      setSearchTerm("");
     } catch (err) {
       console.error(err);
     }
- 
-
   };
   return (
     <>
-      {/* <div className="text-light bg-dark p-5">
-        <Container>
-          <h1>Search for Recipes!</h1>
-          <Form onSubmit={handleFormSubmit}>
-            <Row>
-              <Col xs={12} md={8}>
-                <Form.Control
-                  name='searchTerm'
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  type='text'
-                  size='lg'
-                  placeholder='Search for a recipe'
-                />
-              </Col>
-              <Col xs={12} md={4}>
-                <Button type='submit' variant='success' size='lg'>
-                  Submit Search
-                </Button>
-              </Col>
-            </Row>
-          </Form>
-        </Container>
-        
-      </div>
-
-      <Container>
-      <div className="mt-3"> Quick Search: 
-          {autoPopSearches.map((search) => (
-            <Button
-              key={search.searchTerm}
-              variant="primary"
-              className="mr-2"
-              onClick={(e) => {
-                handleAutoPopSearch(search.searchTerm);
-              }}
-            >
-              {search.term}
-            </Button>
-          ))}
-        </div>
-
-        <h2 className="pt-5">
-          {searchedRecipes.length
-            ? `Viewing ${searchedRecipes.length} results:`
-            : 'Search for a recipe to begin'}
-        </h2>
-        <Row>
-          {searchedRecipes.map(({recipe}) => {
-            // console.log("RENDERING RECIPES", recipe)
-            return (
-              <Col md="4" key={recipe.url}>
-                <Card border='dark'>
-                  {recipe.image ? (
-                    <Card.Img src={recipe.image} alt={''} variant='top' />
-                  ) : null}
-                  <Card.Body>
-                    <Card.Title>Recipe{recipe.label}</Card.Title>
-                    <p className='small'></p>
-                    <Card.Text><p><a href={recipe.url} target={recipe.url} rel="noopener noreferrer">View Details</a></p></Card.Text>
-                    {Auth.loggedIn() && (
-                 <Button
-                 disabled={savedRecipeIds?.includes(recipe.url)}
-                 className='btn-block btn-info'
-                 onClick={() => handleSaveRecipe(recipe)}>
-                 {savedRecipeIds?.includes(recipe.url)
-                   ? 'This recipe is saved!'
-                   : 'Save this Recipe!'}
-               </Button>
-                    )}
-                  </Card.Body>
-                </Card>
-              </Col>
-            );
-          })}
-        </Row>
-      </Container> */}
-
-
-
-
-
       <Container className="pt-4 pb-5 navBar2 is-fluid">
-        <Heading className="has-text-centered is-size-3 navLinks">Search for Recipes!</Heading>
+        <Heading className="has-text-centered is-size-3 navLinks">
+          Search for Recipes!
+        </Heading>
 
         <Form.Field className="mx-5">
           <Form.Control>
@@ -210,32 +145,34 @@ console.log(searchTerm)
               <i className="github" />
             </Icon>
           </Form.Control>
-          <Button fullwidth  onClick={handleFormSubmit} className="mt-2 has-text-centered buttonSubmit2 " type="submit" variant="success" size="lg">
+          <Button
+            fullwidth
+            onClick={handleFormSubmit}
+            className="mt-2 has-text-centered buttonSubmit2 "
+            type="submit"
+            variant="success"
+            size="lg"
+          >
             Submit Search
           </Button>
         </Form.Field>
-
-        {/* <Button.Group> */}
-          {/* <Button fullwidth className="mx-5 has-text-centered buttonSubmit2" type="submit" variant="success" size="lg">
-            Submit Search
-          </Button> */}
-        {/* </Button.Group> */}
       </Container>
 
       <Container className="pb-5 is-fluid" height="200">
-
         <Heading className="has-text-centered mt-3 is-size-5 navLinks2">
           {searchedRecipes.length
             ? `Viewing ${searchedRecipes.length} results:`
             : "Search for a recipe to begin"}
         </Heading>
 
-      <div className="mt-5 pb-5"> Quick Search:  
+        <div className="mt-5 pb-5 is-size-2 has-text-weight-light">
+          {" "}
+          Quick Search:
           {autoPopSearches.map((search) => (
             <Button
               key={search.searchTerm}
               variant="primary"
-              className="mr-2 ml-2 mt-2"
+              className="mr-2 ml-2 mt-2 is-info quickButtons"
               onClick={(e) => {
                 handleAutoPopSearch(search.searchTerm);
               }}
@@ -245,48 +182,58 @@ console.log(searchTerm)
           ))}
         </div>
 
+        <div className="columns is-multiline">
+          {searchedRecipes.map(({ recipe }) => {
+            return (
+              <div className="column is-one-third" key={recipe.url}>
+                <div className="card">
 
-        
+                  {recipe.image ? (
+                    <div class="card-image">
+                      <figure class="image is-4by3">
+                        <img src={recipe.image} alt={recipe.label} />
+                      </figure>
+                    </div>
+                  ) : null}
+                  <div className="card-content">
 
-        {searchedRecipes.map(({ recipe }) => {
-          return (
-            <Container md="4" key={recipe.url}>
-              <Form.Field>
-                {recipe.image ? (
-                  <Card.Image src={recipe.image} alt={""} variant="top" className={"foodImage"}/>
-                ) : null}
-                <card>
-                  <Card.Header className="foodImage">Recipe{recipe.label}</Card.Header>
-                  <p className="small"></p>
-                  <Card.Content>
-                    <p>
-                      <a
-                        href={recipe.url}
-                        target={recipe.url}
-                        rel="noopener noreferrer"
-                      >
-                        View Details
-                      </a>
-                    </p>
-                  </Card.Content>
-                  {Auth.loggedIn() && (
-                    <Button.Group>
-                      <Button
-                        disabled={savedRecipeIds?.includes(recipe.url)}
-                        className="btn-block btn-info"
-                        onClick={() => handleSaveRecipe(recipe)}
-                      >
-                        {savedRecipeIds?.includes(recipe.url)
-                          ? "This recipe has already been saved!"
-                          : "Save this Recipe!"}
-                      </Button>
-                    </Button.Group>
-                  )}
-                </card>
-              </Form.Field>
-            </Container>
-          );
-        })}
+                    <div className="card-content">
+                      <p class="title is-4">Recipe: {recipe.label}</p>
+                      <div className="columns">
+                        <div className="column is-half">
+                          <p>
+                            <a
+                              href={recipe.url}
+                              target={recipe.url}
+                              rel="noopener noreferrer"
+                            >
+                              View Details
+                            </a>
+                          </p>
+                        </div>
+                        <div className="column">
+                          {Auth.loggedIn() && (
+                            <Button.Group>
+                              <Button
+                                disabled={savedRecipeIds?.includes(recipe.url)}
+                                className="btn-block btn-info"
+                                onClick={() => handleSaveRecipe(recipe)}
+                              >
+                                {savedRecipeIds?.includes(recipe.url)
+                                  ? "This recipe is saved!"
+                                  : "Save this Recipe!"}
+                              </Button>
+                            </Button.Group>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </Container>
     </>
   );
