@@ -222,7 +222,7 @@ console.log(searchTerm)
         {/* </Button.Group> */}
       </Container>
 
-      <Container className="pb-5 is-fluid" height="200">
+      <Container className="pb-5 is-fluid">
 
         <Heading className="has-text-centered mt-3 is-size-5 navLinks2">
           {searchedRecipes.length

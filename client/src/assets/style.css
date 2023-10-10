@@ -1,3 +1,13 @@
+body {
+    background-image: url(/background.jpg);
+    background-position: 200px 60px;
+    background-size: 900px;
+    background-repeat: repeat;
+    height: 10000px
+    
+}
+
+
 .buttonSubmit{
 
     background-color: #355691;
