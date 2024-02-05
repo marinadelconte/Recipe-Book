@@ -198,7 +198,7 @@ const SearchRecipes = () => {
                   <div className="card-content">
 
                     <div className="card-content">
-                      <p class="title is-4">Recipe: {recipe.label}</p>
+                      <p class="title is-4">{recipe.label}</p>
                       <div className="columns">
                         <div className="column is-half">
                           <p>
@@ -207,7 +207,7 @@ const SearchRecipes = () => {
                               target={recipe.url}
                               rel="noopener noreferrer"
                             >
-                              View Details
+                              View Recipe Details
                             </a>
                           </p>
                         </div>

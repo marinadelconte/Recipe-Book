@@ -1,10 +1,17 @@
-#root {
+html {
     background-image: url(/background.jpg);
-    /* background-position: 200px 60px; */
+    background-size: 900px;
+    
+}
+
+/* #root {
+    background-image: url(/background.jpg);
+    background-position: 200px 60px;
     background-size: 900px; 
     background-repeat: repeat;
     height: auto;
-}
+} */
+
 
 
 /* .bgContainer {
@@ -14,24 +21,15 @@
     height: auto;
 } */
 
-.quick-search {
-        position: absolute;
+/* .quick-search {
+        position: ;
         background-image: url("/background.jpg");
-        background-origin: border-box;
         background-size: 900px;
-        background-position: center;
-        width: 100%;
-        height: auto;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: -100;
-        opacity: 100%;
-    }
+    } */
     
 
 .homeBg {
-    position: absolute;
+    position: top right;
     background-image: url("/background.jpg");
     background-origin: border-box;
     background-size: 900px;
@@ -114,3 +112,4 @@ margin-top: 20px;
 padding: 15px;
 
 }
+

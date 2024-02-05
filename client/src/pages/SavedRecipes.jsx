@@ -71,12 +71,15 @@ const SavedRecipes = () => {
                     </div>
 
                 <div className="card-content">
-                  <p class="title is-4">Recipe: {recipe.label}</p>
-                      <p>Servings: {recipe.yield}</p>
-                      <p>Macros Per Dish:</p>
-                      <p>Calories: {Math.round(recipe.calories)} Protein: {Math.round(recipe.protein)}g Carbs: {Math.round(recipe.carbs)}g Fats: {Math.round(recipe.fats)}g</p>
-                      <p>Macros Per Serving:</p>
-                      <p>Calories: {Math.round(recipe.calories / recipe.yield)} Protein: {Math.round(recipe.protein / recipe.yield)}g Carbs: {Math.round(recipe.carbs / recipe.yield)}g Fats: {Math.round(recipe.fats / recipe.yield)}g</p>
+                  <p class="title is-4">{recipe.label}</p>
+                      {/* <p>Servings: {recipe.yield}</p> */}
+                      {/* <p>Macros Per Dish:</p>
+                      <p>Calories: {Math.round(recipe.calories)} Protein: {Math.round(recipe.protein)}g Carbs: {Math.round(recipe.carbs)}g Fats: {Math.round(recipe.fats)}g</p> */}
+                      {/* <p>Macros Per Serving:</p> */}
+                      <h5>Nutrition Info:</h5>
+                      <p>Calories: {Math.round(recipe.calories / recipe.yield)}</p>
+                      <p>Protein: {Math.round(recipe.protein / recipe.yield)}g</p> 
+                      <p>Carbs: {Math.round(recipe.carbs / recipe.yield)}g</p>
                     
                   <div className="columns mt-2">
                     <div className="column is-half">
