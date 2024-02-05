@@ -5,7 +5,6 @@ import '../assets/style.css'
 
 import "bulma/css/bulma.min.css";
 import { Link } from "react-router-dom";
-// import { Form } from 'react-bootstrap';
 import { useMutation } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 
