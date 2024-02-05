@@ -126,7 +126,7 @@ const SearchRecipes = () => {
       <Container className="pt-4 pb-5 navBar2 is-fluid">
         
         <Heading className="has-text-centered is-size-3 navLinks">
-          Search for Recipes!
+          Recipe Book
         </Heading>
 
         <Form.Field className="mx-5">
@@ -158,14 +158,14 @@ const SearchRecipes = () => {
       </Container>
       
       <div className="bgContainer">
-      <Container className="pb-5 is-fluid" height="200">
-        <Heading className="has-text-centered mt-3 is-size-5 navLinks2">
+      <Container className="quick-search pb-5 is-fluid" height="100">
+        <Heading className="search has-text-centered mt-3 is-size-5">
           {searchedRecipes.length
             ? `Viewing ${searchedRecipes.length} results:`
             : "Search for a recipe to begin"}
         </Heading>
 
-        <div className="mt-5 pb-5 is-size-2 has-text-weight-light">
+        <div className="mt-5 pb-5 is-size-2 has-text-weight-medium">
           {" "}
           Quick Search:
           {autoPopSearches.map((search) => (
