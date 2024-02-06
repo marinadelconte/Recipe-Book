@@ -13,7 +13,7 @@ This section is here to highlight the required elements needed for review:
 
 * The following link will redirect you to our deployed link on Heroku:
 
-Refer to this [Heroku Deployed URL]() to view the functionality of this application
+Refer to this [Heroku Deployed URL](https://recipe-book-mld-ecaf15021f7b.herokuapp.com/) to view the functionality of this application
     
 
 * The following link will redirect you to our GitHub repository, with a unique name and this README to describe the project:
